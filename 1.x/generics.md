@@ -6,50 +6,39 @@ description: php opis json schema generic validation keywords
 keywords: opis, php, json, schema, generic, validation, type, enum, const
 ---
 
-# Generic validation keywords
+The `type`, `const`, and `enum` generic keywords, allow you to validate JSON data, 
+by checking if its value, or its type, matches a given value or type. 
+The keywords can be used with all JSON types and are evaluated in the order on which they are presented below. 
+All these keywords are optional.
 
-These keywords allow you to validate an instance by checking the data type
-or by checking if the data value equals to a predefined value.
 
-## Validation keywords
+## type
 
-The following keywords are supported by any type, and evaluated
-in the presented order. All keywords are optional.
+The `type` keyword specifies the type of data that the schema is expecting to validate.
+This keyword is not mandatory and the value of the keyword must be a string,
+representing a valid [data type][data_types], or an array of strings, representing a
+valid list of [data types][data_types].
 
-1. [type](#type)
-2. [const](#const)
-3. [enum](#enum)
-
-### type
-
-The `type` keyword specifies the data type that a schema will use.
-This keyword is not mandatory, and the value of keyword can be a string
-representing a [valid data type](structure.html#data-types), or an array of strings representing
-valid data types.
-
+{% capture schema %}
 ```json
 {
   "type": "string"
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"some text"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `""`{:.language-json} | *valid*{:.text-success.text-normal} - empty string |
+| `12`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number |
+| `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"some text"` - valid
-{:.alert.alert-success}
-
-`""` - valid (empty string)
-{:.alert.alert-success}
-
-`12` - invalid (is integer/number)
-{:.alert.alert-danger}
-
-`null` - invalid (is null)
-{:.alert.alert-danger}
-
-
-You can use multiple types at once to restrict accepted data types,
-or you can omit the `type` keyword to accept any type. The order of
-types in the array doesn't matter, but you should not put the same
-type more than once.
+When specifying multiple types, their order is irrelevant to the validation process, but
+you should make sure that a data type is specified only once. 
 
 ```json
 {
@@ -93,7 +82,7 @@ type more than once.
 `[1, 2, 3]` - invalid (is array)
 {:.alert.alert-danger}
 
-### const
+## const
 
 An instance validates against this keyword if its value equals to the
 value of this keyword. The value of this keyword can be anything.
@@ -141,7 +130,7 @@ Validates if the object have the same properties and values (order of properties
 `5.10` - invalid
 {:.alert.alert-danger}
 
-### enum
+## enum
 
 An instance validates against this keyword if its value equals can be
 found in the items defined by the value of this keyword. 
@@ -178,3 +167,5 @@ An empty array is not allowed.
 `["a", "b", 1, null]` - invalid
 {:.alert.alert-danger}
 
+
+[data_types]: ./structure.html#data-types "Data types"

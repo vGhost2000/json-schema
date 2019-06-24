@@ -2,11 +2,12 @@
 layout: project
 version: 1.x
 title: About
-description: About Opis Json Schema validation in PHP
+description: About Opis JSON Schema validation in PHP
 keywords: opis, json, schema, validation, php, about
+lib: 
+    name: opis/json-schema
+    version: 1.0
 ---
-
-# About
 
 **Opis JSON Schema** is a PHP implementation for the [JSON Schema](http://json-schema.org/){:target="_blank"}
 standard (draft-07 and draft-06), that will help you validate all sorts of JSON documents, 
@@ -23,6 +24,33 @@ whether they are configuration files or a set of data sent to an RESTful API end
 - Support for custom media types
 - Support for default value
 - And, of course, all the json schema keywords
+
+## License
+
+**Opis JSON Schema** is licensed under [Apache License, Version 2.0][apache_license].
+
+## Requirements
+
+* PHP 7.0 or higher
+
+## Installation
+
+**Opis JSON Schema** is available on [Packagist] and it can be installed from a 
+command line interface by using [Composer]. 
+
+```bash
+composer require {{page.lib.name}}
+```
+
+Or you could directly reference it into your `composer.json` file as a dependency
+
+```json
+{
+    "require": {
+        "{{page.lib.name}}": "^{{page.lib.version}}"
+    }
+}
+```
 
 ## Documentation
 
@@ -92,18 +120,10 @@ On this site you can find documentation about json schema itself and about [the 
 - [URI templates](uri-template.html)
 - [json pointers](pointers.html)
 
-## Installation
 
-This library is available on [Packagist](https://packagist.org/packages/opis/json-schema) and can be installed using [Composer](http://getcomposer.org).
-
-```bash
-composer require opis/json-schema
-```
-
-## Requirements
-
-* PHP 7 or higher
-
-## License
-
-**Opis Json Schema** library is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). 
+[apache_license]: http://www.apache.org/licenses/LICENSE-2.0 "Project license" 
+{:rel="nofollow" target="_blank"}
+[Packagist]: https://packagist.org/packages/{{page.lib.name}} "Packagist" 
+{:rel="nofollow" target="_blank"}
+[Composer]: http://getcomposer.org "Composer" 
+{:ref="nofollow" target="_blank"}

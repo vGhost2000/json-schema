@@ -1,18 +1,10 @@
 ---
 layout: project
 version: 1.x
-title: Json Schema structure
+title: JSON Schema structure
 description: JSON Schema structure and metadata
 keywords: opis, php, json, schema, validation, structure, metadata
 ---
-# JSON Schema structure
-
-* [Data types](#data-types)
-* [Document structure](#document-structure)
-* [$schema keyword](#schema-keyword)
-* [$id keyword](#id-keyword)
-* [Metadata keywords](#metadata-keywords)
-* [JSON Schema examples](#json-schema-examples)
 
 JSON Schema is a declarative way of writing validation rules. It contains
 all the steps that are necessary to be performed in order to validate something.
@@ -27,14 +19,16 @@ and tells you the validation status.
 Because json schema is written in JSON format, it supports all JSON
 types plus an addition: the integer type, which is a subtype of the number type.
 
-- `string` - represents a string/text (`"a string"`, `"other string"`)
-- `number` - represents an integer or a float (`-5`, `10`, `-5.8`, `10.2`)
-- `integer` - represents an integer (`-100`, `125`, `0`)
-- `boolean` - represents a boolean value (`true` or `false`)
-- `null` - indicates that a value is missing (`null`)
+- `string` - represents a string/text, e.g. `"a string"`{:.language-json}, `"other string"`{:.language-json}
+- `number` - represents an integer or a float, e.g. `-5`{:.language-json}, `10`{:.language-json}, 
+`-5.8`{:.language-json}, `10.2`{:.language-json}
+- `integer` - represents an integer, e.g. `-100`{:.language-json}, `125`{:.language-json},
+ `0`{:.language-json}
+- `boolean` - represents a boolean value, e.g. `true`{:.language-json} or `false`{:.language-json}
+- `null` - indicates that a value is missing, e.g. `null`{:.language-json}
 - `object` - a key-value map, where the key must be a `string` and the
-value can be any type (`{"key": "value", "other-key": 5}`)
-- `array` - an ordered list of any data types (`[1, -2.5, "some string", null]`)
+value can be any type, e.g. `{"key": "value", "other-key": 5}`{:.language-json}
+- `array` - an ordered list of any data types, e.g. `[1, -2.5, "some string", null]`{:.language-json}
 
 ## Document structure
 
@@ -66,6 +60,7 @@ Always invalid.
 Always valid because there are no steps defined.
 {:.blockquote-footer}
 
+{% capture schema %}
 ```json
 {
   "type": "string"
@@ -74,12 +69,15 @@ Always valid because there are no steps defined.
 Validation status is keyword dependent (in this case) the data is valid
 only if it holds a string.
 {:.blockquote-footer}
-
-`"test"` - valid
-{:.alert.alert-success}
-
-`123` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{%capture data %}
+|Input|Status|
+|-----|------|
+| `"test"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `123`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 Some keywords are purely decorative, like metadata keywords, which just describe the author intent.
 Others are for identifying a document or a subschema, and the rest of them are for
@@ -181,13 +179,14 @@ Contains an observation about the schema. The value of this keyword must be a st
 
 For most of the basic examples we will not use `$schema`, `$id` and metadata keywords,
 but when writing schemas it is recommended to use at least the `$id` keyword.
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Remember"}
 
 Don't worry if you don't exactly understand every keyword, they are presented
 in depth in the next chapters.
 
 ### Validating a simple user
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -208,31 +207,24 @@ in depth in the next chapters.
   "required": ["email"]
 }
 ```
-
-`{"name": "John", "email": "john@example.com", "age": 25}` - valid
-{:.alert.alert-success}
-
-`{"email": "john@example.com"}` - valid (only the `email` is required)
-{:.alert.alert-success}
-
-`{"name": "John", "age": 25}` - invalid (required `email` is missing)
-{:.alert.alert-danger}
-
-`{"name": "John", "email": "john(at)example.com", "age": 25}` - invalid (not a valid email address)
-{:.alert.alert-danger}
-
-`{"email": 123}` - invalid (`email` must be a string)
-{:.alert.alert-danger}
-
-`{"email": "john@example.com", "age": 25.5}` - invalid (`age` must be an integer)
-{:.alert.alert-danger}
-
-`"john@example.com"` - invalid (must be an object)
-{:.alert.alert-danger}
-
+{% endcapture %}
+{% capture data%}
+| Input | Status |
+|-------|--------|
+| `{"name": "John", "email": "john@example.com", "age": 25}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"email": "john@example.com"}`{:.language-json} | *valid*{:.text-success.text-normal} - only the `email` is required | 
+| `{"name": "John", "age": 25}`{:.language-json} | *invalid*{:.text-danger.text-normal} - required `email` is missing |
+| `{"name": "John", "email": "john(at)example.com", "age": 25}`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a valid email address |
+| `{"email": 123}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `email` must be a string |
+| `{"email": "john@example.com", "age": 25.5}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `age` must be an integer |
+| `"john@example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} - must be an object |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### Validating a list
 
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -242,21 +234,15 @@ in depth in the next chapters.
   }
 }
 ```
-
-`[1, "a"]` - valid
-{:.alert.alert-success}
-
-`[-5.1, 10.8, 2]` - valid
-{:.alert.alert-success}
-
-`["a", "b", "c", "d", 4, 5]` - valid
-{:.alert.alert-success}
-
-`[1]` - invalid (must have at least 2 items)
-{:.alert.alert-danger}
-
-`["a", {"x": 1}]` - invalid (contains an object)
-{:.alert.alert-danger}
-
-`{"0": 1, "1": 2}` - invalid (not an array)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data%}
+|-------|--------|
+| `[1, "a"]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[-5.1, 10.8, 2]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `["a", "b", "c", "d", 4, 5]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1]` {:.language-json} | *invalid*{:.text-danger.text-normal} - must have at least 2 items |
+| `["a", {"x": 1}]`{:.language-json} | *invalid*{:.text-danger.text-normal} - contains an object |
+| `{"0": 1, "1": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - not an array |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
