@@ -6,19 +6,13 @@ description: php opis json schema applying subschemas conditionally
 keywords: opis, php, json, schema, conditional, subschema, if then else
 ---
 
-# Applying subschemas conditionally
-
 Sometimes you need to conditionally apply a subschema or to negate the validation
-result.
-The following keywords help you do that.
+result. The following keywords help you do that.
 
 ## Validation keywords
 
 The following keywords are supported by any instance type, and are evaluated in
 the presented order. All keywords are optional.
-
-1. [not](#not)
-2. [if-then-else](#if-then-else)
 
 ### not
 
@@ -26,6 +20,7 @@ An instance is valid against this keyword if is **not** valid against
  the schema defined by the value of this keyword. 
 The value of this keyword must be a valid json schema (object or boolean).
 
+{% capture schema %}
 ```json
 {
   "not": {
@@ -36,28 +31,23 @@ The value of this keyword must be a valid json schema (object or boolean).
 
 Accept anything but strings
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `-2.3`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `true`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `null`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": "test"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"some string"`{:.language-json} | *invalid*{:.text-danger.text-normal}|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`-2.3` - valid
-{:.alert.alert-success}
-
-`true` - valid
-{:.alert.alert-success}
-
-`null` - valid
-{:.alert.alert-success}
-
-`{"a": "test"}` - valid
-{:.alert.alert-success}
-
-`[1, 2, 3]` - valid
-{:.alert.alert-success}
-
-`"some string"` - invalid
-{:.alert.alert-danger}
-
-Please pay attention when using `not`! You can write schemas that never
-validate!
-{:.alert.alert-warning}
+Please pay attention when using `not`!
+You could unintentionally write schemas that never validate!
+{:.alert.alert-warning data-title="Important"}
 
 ```json
 {
@@ -67,8 +57,7 @@ validate!
   }
 }
 ```
-
-This is never valid.
+This schema will never validate
 {:.blockquote-footer}
 
 ### if-then-else
@@ -84,8 +73,9 @@ The instance is valid against this keyword in one of the following cases:
 
 As a best practice, please place these keywords in the same order as defined here and do not
 add other keywords between them.
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Remember"}
 
+{% capture schema %}
 ```json
 {
   "if": {
@@ -103,28 +93,22 @@ add other keywords between them.
 If the instance is a `string` then must have a minimum length of `3`, else
 it must be `0`.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 3 |
+| `"abcd"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 4 |
+| `0`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `0.0`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"ab"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 2 |
+| `1`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string and not `0`|
+| `["abc"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string and not `0`|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"abc"` - valid (string with length = 3)
-{:.alert.alert-success}
-
-`"abcd"` - valid (string with length = 4)
-{:.alert.alert-success}
-
-`0` - valid
-{:.alert.alert-success}
-
-`-0.0` - valid
-{:.alert.alert-success}
-
-`"ab"` - invalid (string with length = 2)
-{:.alert.alert-danger}
-
-`1` - invalid (not a string and not 0)
-{:.alert.alert-danger}
-
-`["abc"]` - (not a string and not 0)
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "if": {
@@ -139,22 +123,21 @@ it must be `0`.
 If the instance is a `string` then must have a minimum length of `3`, else
 it is invalid.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 3 |
+| `"abcd"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 4 |
+| `"ab"`{:.language-json} | *invalid*{:.text-danger.text-normal} - string of length 2 |
+| `0`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string |
+| `["abc"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"abc"` - valid (string with length = 3)
-{:.alert.alert-success}
 
-`"abcd"` - valid (string with length = 4)
-{:.alert.alert-success}
-
-`"ab"` - invalid (string with length = 2)
-{:.alert.alert-danger}
-
-`0` - invalid (not a string)
-{:.alert.alert-danger}
-
-`["abc"]` - (not a string)
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "if": {
@@ -169,21 +152,17 @@ it is invalid.
 If the instance is a `string` consider it valid, else
 it is valid only when `0`.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `""`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `0`{:.language-json} | *invalid*{:.text-valid.text-normal} |
+| `-0.0`{:.language-json} | *invalid*{:.text-valid.text-normal} |
+| `1`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string and not `0`|
+| `["abc"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string and not `0`|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"abc"` - valid (string)
-{:.alert.alert-success}
-
-`""` - valid (string)
-{:.alert.alert-success}
-
-`0` - valid ()
-{:.alert.alert-success}
-
-`-0.0` - valid ()
-{:.alert.alert-success}
-
-`1` - invalid (not a string and not 0)
-{:.alert.alert-danger}
-
-`["abc"]` - (not a string and not 0)
-{:.alert.alert-danger}

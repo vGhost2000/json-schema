@@ -6,8 +6,6 @@ description: the opis json schema validation result object and errors
 keywords: opis, json, schema, validation, validator, result, error
 ---
 
-# Validation result
-
 Every time you validate something, you'll get as a result an object
 of class `\Opis\JsonSchema\ValidationResult`. This object can tell you
 if the data passed or not the validation, and in the later case it provides you

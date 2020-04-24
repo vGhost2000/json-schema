@@ -6,8 +6,6 @@ description: the opis json schema validation using custom media/mime types
 keywords: opis, json, schema, validation, media, mime
 ---
 
-# Creating media types
-
 A custom media type is an object implementing `\Opis\JsonSchema\IMediaType` interface.
 The `validate` method receives two arguments and must return 
 a `boolean` (`true` if the `$data` has the specified media type, `false` otherwise).

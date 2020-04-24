@@ -6,45 +6,33 @@ description: php opis json schema validation of arrays
 keywords: opis, php, json, schema, array, validation
 ---
 
-# Array type
+The `array` type is used for validating JSON indexed arrays.
 
-The `array` type is used for validating ordered lists (indexed arrays).
-
+{% capture schema %}
 ```json
 {
   "type": "array"
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[]`{:.language-json} | *valid*{:.text-success.text-normal} - empty array |
+| `[2, 1, "str", false, null, {}]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `12`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number|
+| `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null|
+| `"[1, 2, 3]"`{:.language-json} | *invalid*{:.text-danger.text-normal} - is string|
+| `{"0": 1, "1": 2, "2": 3}`{:.language-json} | *invalid*{:.text-danger.text-normal} - is object|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`[]` - valid (empty array)
-{:.alert.alert-success}
-
-`[2, 1, "str", false, null, {}]` - valid
-{:.alert.alert-success}
-
-`12` - invalid (is integer/number)
-{:.alert.alert-danger}
-
-`null` - invalid (is null)
-{:.alert.alert-danger}
-
-`"1, 2, 3"` - invalid (is string)
-{:.alert.alert-danger}
-
-`{"0": 1, "1": 2, "2": 3}` - invalid (is object)
-{:.alert.alert-danger}
 
 ## Validation keywords
 
 The following keywords are supported by the `array` type, and evaluated
 in the presented order. All keywords are optional.
-
-1. [minItems](#minitems)
-2. [maxItems](#maxitems)
-3. [unniqueItems](#uniqueitems)
-4. [contains](#contains)
-5. [items](#items)
-6. [additionalItems](#additionalitems)
 
 ### minItems
 
@@ -52,6 +40,8 @@ An array is valid against this keyword, if the number of items it contains
 is greater than, or equal to, the value of this keyword.
 The value of this keyword must be a non-negative integer.
 
+
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -61,18 +51,17 @@ The value of this keyword must be a non-negative integer.
 
 Array must have at least `2` items.
 {:.blockquote-footer}
-
-`[1, 2, 3]` - valid (3 > 2)
-{:.alert.alert-success}
-
-`["a", "b"]` - valid (2 = 2)
-{:.alert.alert-success}
-
-`["text"]` - invalid (1 < 2)
-{:.alert.alert-danger}
-
-`[]` - invalid (0 < 2)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} - contains more than 2 items |
+| `["a", "b"]`{:.language-json} | *valid*{:.text-success.text-normal} - contains 2 items|
+| `["text"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - contains a single item|
+| `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} - contains no items|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### maxItems
 
@@ -80,6 +69,7 @@ An array is valid against this keyword, if the number of items it contains
 is lower than, or equal to, the value of this keyword.
 The value of this keyword must be a non-negative integer.
 
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -89,18 +79,17 @@ The value of this keyword must be a non-negative integer.
 
 Array can have at most `2` items.
 {:.blockquote-footer}
-
-`[1, 2]` - valid (2 = 2)
-{:.alert.alert-success}
-
-`["a"]` - valid (1 < 2)
-{:.alert.alert-success}
-
-`[]` - valid (0 < 2)
-{:.alert.alert-success}
-
-`[1, 2, 3]` - invalid (3 > 2)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, 2]`{:.language-json} | *valid*{:.text-success.text-normal} - contains 2 items |
+| `["a"]`{:.language-json} | *valid*{:.text-success.text-normal} - contains a single item|
+| `[]`{:.language-json} | *valid*{:.text-success.text-normal} - contains no items|
+| `[1, 2, 3]`{:.language-json} | *invalid*{:.text-danger.text-normal} - contains more than 2 items|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### uniqueItems
 
@@ -109,6 +98,7 @@ more than once in the array.
 The value of this keyword must be a boolean. If set to `false` the keyword
 validation will be ignored.
 
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -118,30 +108,21 @@ validation will be ignored.
 
 Array must have unique items (for every data type).
 {:.blockquote-footer}
-
-`[1, 2, 3]` - valid
-{:.alert.alert-success}
-
-`["a", "b", "c"]` - valid
-{:.alert.alert-success}
-
-`[1, "1"]` - valid
-{:.alert.alert-success}
-
-`[[1, 2], [3, 4]]` - valid
-{:.alert.alert-success}
-
-`[1, 2, 1]` - invalid (duplicate `1`)
-{:.alert.alert-danger}
-
-`["a", "b", "B", "a"]` - invalid (duplicate `a`)
-{:.alert.alert-danger}
-
-`[[1, 2], [1, 3], [1, 2]]` - invalid (duplicate `[1, 2]`)
-{:.alert.alert-danger}
-
-`[{"a": 1, "b": 2}, {"a": 1, "c": 2}, {"a": 1, "b": 2}]` - invalid (duplicate `{"a": 1, "b": 2}`)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `["a", "b", "c"]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, "1"]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[[1, 2], [3, 4]]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, 2, 1]`{:.language-json} | *invalid*{:.text-danger.text-normal} - duplicate `1`|
+| `["a", "b", "B", "a"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - duplicate `a`|
+| `[[1, 2], [1, 3], [1, 2]]`{:.language-json} | *invalid*{:.text-danger.text-normal} - duplicate `[1, 2]`|
+| `[{"a": 1, "b": 2}, {"a": 1, "c": 2}, {"a": 1, "b": 2}]`{:.language-json} | *invalid*{:.text-danger.text-normal} - duplicate `{"a": 1, "b": 2}`|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### contains
 
@@ -149,9 +130,10 @@ An array is valid against this keyword if at least one item is valid against
 the schema defined by the keyword value.
 The value of this keyword must be a valid json schema (object or boolean).
 
-Please not that an empty array will never be valid against this keyword.
-{:.alert.alert-info}
+Please note that an empty array will never be valid against this keyword.
+{:.alert.alert-info data-title="Important"}
 
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -163,24 +145,19 @@ Please not that an empty array will never be valid against this keyword.
 
 Array must contain at least one integer.
 {:.blockquote-footer}
-
-`[1]` - valid
-{:.alert.alert-success}
-
-`[1, 2]` - valid
-{:.alert.alert-success}
-
-`["a", "b" -4.0]` - valid
-{:.alert.alert-success}
-
-`[]` - invalid
-{:.alert.alert-danger}
-
-`["a", "b", "1"]` - invalid
-{:.alert.alert-danger}
-
-`[2.3, 4.5, -6.7]` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, 2]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `["a", "b" -4.0]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `["a", "b", "1"]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `[2.3, 4.5, -6.7]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### items
 
@@ -195,6 +172,7 @@ position (array contains 5 items and this keyword only has 3)
 will be considered valid, unless the [`additionalItems` keyword](#additionalitems)
 is present - which will decide the validity.
 
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -207,22 +185,21 @@ is present - which will decide the validity.
 
 Array must contain only positive integers.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[-0, 2.0]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[-2, 3, 4]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `["a", 2]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`[1, 2, 3]` - valid
-{:.alert.alert-success}
 
-`[-0, 2.0]` - valid
-{:.alert.alert-success}
-
-`[]` - valid
-{:.alert.alert-success}
-
-`[-2, 3, 4]` - invalid
-{:.alert.alert-danger}
-
-`["a", 2]` - invalid
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -236,27 +213,20 @@ Array must contain only positive integers.
 First item of the array must be an integer and the second a string.
 Other items can be anything.
 {:.blockquote-footer}
-
-`[1, "a"]` - valid
-{:.alert.alert-success}
-
-`[1.0, "a", 5.6, null, true]` - valid
-{:.alert.alert-success}
-
-`[1]` - valid
-{:.alert.alert-success}
-
-`[]` - valid
-{:.alert.alert-success}
-
-`["a", 1]` - invalid
-{:.alert.alert-danger}
-
-`[5.5, "a"]` - invalid
-{:.alert.alert-danger}
-
-`[5, 6]` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, "a"]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1.0, "a", 5.6, null, true]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `["a", 1]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `[5.5, "a"]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `[5, 6]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### additionalItems
 
@@ -267,6 +237,8 @@ an array of schemas and doesn't have a corresponding position (index).
 If the `items` keyword is not an array, then this keyword is ignored.
 The value of the keyword must be a valid json schema (object, boolean).
 
+
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -283,24 +255,17 @@ The value of the keyword must be a valid json schema (object, boolean).
 First item of the array must be an integer and the second a string.
 Other items can only be booleans.
 {:.blockquote-footer}
-
-`[1, "a", true, false, true, true]` - valid
-{:.alert.alert-success}
-
-`[1, "a"]` - valid
-{:.alert.alert-success}
-
-`[1]` - valid
-{:.alert.alert-success}
-
-`[]` - valid
-{:.alert.alert-success}
-
-`[1, "a", 2]` - invalid
-{:.alert.alert-danger}
-
-`[1, "a", true, 2, false]` - invalid
-{:.alert.alert-danger}
-
-`[1, true, false]` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, "a", true, false, true, true]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, "a"]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, "a", 2]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `[1, "a", true, 2, false]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `[1, true, false]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}

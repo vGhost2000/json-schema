@@ -6,8 +6,6 @@ description: the opis json schema validator object
 keywords: opis, json, schema, validation, validator
 ---
 
-# Validator object
-
 In order to validate your data with json schema, you have to 
 create a validator object of type `\Opis\JsonSchema\IValidator`.
 Since that is an interface, Opis Json Schema provides an implementation

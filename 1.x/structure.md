@@ -84,7 +84,7 @@ Others are for identifying a document or a subschema, and the rest of them are f
 validity checks. Usually keywords work independently and there are only a few
 exceptions.
 
-## $schema keyword
+## *$schema* keyword
 
 This keyword is used to specify the desired schema version. 
 The value of this keyword must be a string representing an URI.
@@ -100,7 +100,7 @@ latest schema version will be used instead.
 The only difference between draft 06 and draft 07 is that draft 06 does not
 support [if-then-else keywords](conditional-subschemas.html#if-then-else). 
 
-## $id keyword
+## *$id* keyword
 
 This keyword is used to specify an unique ID for a document or a document subschemas.
 The value of this keyword must be a string representing an URI. All subschema
@@ -108,6 +108,12 @@ IDs are resolved relative to the document's ID.
 It is not a required keyword, but we recommend you using it, as a  best practice.
 
 The usage of this keyword will be covered in the next chapters.
+
+## *definitions* keyword
+
+This keyword does not directly validate data, but it contains a map
+of validation schemas. The value of this keyword can be anything.
+This keyword is not required.
 
 ## Metadata keywords
 

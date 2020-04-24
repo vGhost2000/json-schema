@@ -6,8 +6,6 @@ description: the opis json schema validation using custom filters
 keywords: opis, json, schema, validation, filter
 ---
 
-# Creating custom filters
-
 A filter is an object of a class implementing `Opis\JsonSchema\IFilter` interface.
 The `validate` method receives two arguments, and must return a `boolean` (`true` if valid, `false` otherwise)
 - `mixed $value`: the current value to validate

@@ -40,53 +40,50 @@ valid list of [data types][data_types].
 When specifying multiple types, their order is irrelevant to the validation process, but
 you should make sure that a data type is specified only once. 
 
+{% capture schema %}
 ```json
 {
   "type": ["object", "null"]
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": 1}`{:.language-json} | *valid*{:.text-success.text-normal} - is object|
+| `null`{:.language-json} | *valid*{:.text-success.text-normal} - is null|
+| `"1, 2, 3"`{:.language-json} | *invalid*{:.text-danger.text-normal} - is string|
+| `[{"a": 1}, {"b": 2}]`{:.language-json} | *invalid*{:.text-danger.text-normal} - is array |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"a": 1}` - valid (is object)
-{:.alert.alert-success}
-
-`null` - valid (is null)
-{:.alert.alert-success}
-
-`"1, 2, 3"` - invalid (is string)
-{:.alert.alert-danger}
-
-`[{"a": 1}, {"b": 2}]` - invalid (is array)
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "type": ["number", "string", "null"]
 }
 ```
-
-`-10.5` - valid (is number)
-{:.alert.alert-success}
-
-`"some string"` - valid (is string)
-{:.alert.alert-success}
-
-`null` - valid (is null)
-{:.alert.alert-success}
-
-`false` - invalid (is boolean)
-{:.alert.alert-danger}
-
-`{"a": 1}` - invalid (is object)
-{:.alert.alert-danger}
-
-`[1, 2, 3]` - invalid (is array)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `-10.5`{:.language-json} | *valid*{:.text-success.text-normal} - is number|
+| `"some string"`{:.language-json} | *valid*{:.text-success.text-normal} - is string|
+| `null`{:.language-json} | *valid*{:.text-success.text-normal} - is null|
+| `false`{:.language-json} | *invalid*{:.text-danger.text-normal} - is boolean|
+| `{"a": 1}`{:.language-json} | *invalid*{:.text-danger.text-normal} - is object |
+| `[1, 2, 3]`{:.language-json} | *invalid*{:.text-danger.text-normal} - is array |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ## const
 
 An instance validates against this keyword if its value equals to the
 value of this keyword. The value of this keyword can be anything.
 
+{% capture schema %}
 ```json
 {
   "const": "test"
@@ -94,19 +91,19 @@ value of this keyword. The value of this keyword can be anything.
 ```
 Validates if equals to `"test"`.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"test"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"Test"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"tesT"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `3.4`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"test"` - valid
-{:.alert.alert-success}
-
-`"Test"` - invalid
-{:.alert.alert-danger}
-
-`"tesT"` - invalid
-{:.alert.alert-danger}
-
-`3.4` - invalid
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "const": {
@@ -117,18 +114,18 @@ Validates if equals to `"test"`.
 ```
 Validates if the object have the same properties and values (order of properties does not matter).
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": 1, "b": "2"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"b": "2", "a": 1}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": 1, "b": "2", "c": null}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `5.10`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"a": 1, "b": "2"}` - valid
-{:.alert.alert-success}
-
-`{"b": "2", "a": 1}` - valid
-{:.alert.alert-success}
-
-`{"a": 1, "b": "2", "c": null}` - invalid
-{:.alert.alert-danger}
-
-`5.10` - invalid
-{:.alert.alert-danger}
 
 ## enum
 
@@ -137,35 +134,27 @@ found in the items defined by the value of this keyword.
 The value of this keyword must be an array containing anything.
 An empty array is not allowed.
 
+{% capture schema %}
 ```json
 {
   "enum": ["a", "b", 1, null]
 }
 ```
-
-`"a"` - valid
-{:.alert.alert-success}
-
-`"b"` - valid
-{:.alert.alert-success}
-
-`1` - valid
-{:.alert.alert-success}
-
-`null` - valid
-{:.alert.alert-success}
-
-`"A"` - invalid
-{:.alert.alert-danger}
-
-`-1` - invalid
-{:.alert.alert-danger}
-
-`false` - invalid
-{:.alert.alert-danger}
-
-`["a", "b", 1, null]` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"a"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"b"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `1`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `null`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"A"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `-1`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `false`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `["a", "b", 1, null]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 
 [data_types]: ./structure.html#data-types "Data types"

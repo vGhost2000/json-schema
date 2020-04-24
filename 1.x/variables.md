@@ -6,8 +6,6 @@ description: using variables in json schema
 keywords: opis, json, schema, variables, $vars
 ---
 
-# Variables
-
 Variables are a non-standard addition to tackle
 different scenarios where json schema alone fails.
 This means, that you can use a new keyword named `$vars`
@@ -24,8 +22,9 @@ In a json schema document, `$vars` must be an object but
 the values inside `$vars` can be anything.
 
 
-`$vars` keyword support is enabled by default, to disable it use `Opis\JsonSchema\Validator::varsSupport(false)`.
-{:.alert.alert-info}
+`$vars` keyword support is enabled by default, 
+to disable it use `Opis\JsonSchema\Validator::varsSupport(false)`{:.language-php}.
+{:.alert.alert-info data-title="Important"}
 
 Example of `$vars`:
 
@@ -159,7 +158,7 @@ Please note that data can come from an untrusted source,
 so it is better to filter it before by using `enum` or other json schema
 keywords including [$filters](filters.html) if needed. Also, use URI template
 escaping mechanisms.
-{:.alert.alert-warning}
+{:.alert.alert-warning data-title="Important"}
 
 Here is an example that validates a number by using number's type.
 

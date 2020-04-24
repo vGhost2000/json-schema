@@ -39,8 +39,9 @@
                 "items": {
                     "#data-types": "Data types",
                     "#document-structure": "Document structure",
-                    "#schema-keyword": "$schema keyword",
-                    "#id-keyword": "$id keyword",
+                    "#schema-keyword": "`$schema` keyword",
+                    "#id-keyword": "`$id` keyword",
+                    "#definitions-keyword": "`definitions` keyword",
                     "#metadata-keywords": {
                         "title": "Metadata keywords",
                         "items": {
@@ -72,42 +73,127 @@
             {
                 "title": "String type",
                 "url": "/1.x/string.html",
-                "description": "Keywords for string type"
+                "description": "Keywords for string type",
+                "items": {
+                    "#validation-keywords": {
+                        "title": "Validation keywords",
+                        "items": {
+                            "#minlength": "minLength",
+                            "#maxlength": "maxLength",
+                            "#pattern": "pattern",
+                            "#contentencoding": "contentEncoding",
+                            "#contentmediatype": "contentMediaType"
+                        }
+                    }
+                }
             },
             {
                 "title": "Number type",
                 "url": "/1.x/number.html",
-                "description": "Keywords for number type"
+                "description": "Keywords for number type",
+                "items": {
+                    "#validation-keywords": {
+                        "title": "Validation keywords",
+                        "items": {
+                            "#minimum": "minimum",
+                            "#exclusiveminimum": "exclusiveMinimum",
+                            "#maximum": "maximum",
+                            "#exclusivemaximum": "exclusiveMaximum",
+                            "#multipleof": "multipleOf"
+                        }
+                    }
+                }
             },
             {
                 "title": "Integer type",
                 "url": "/1.x/integer.html",
-                "description": "Description for integer type"
+                "description": "Description for integer type",
+                "items": {
+                    "#validation-keywords": "Validation keywords"
+                }
             },
             {
                 "title": "Boolean type",
                 "url": "/1.x/boolean.html",
-                "description": "Description for boolean type"
+                "description": "Description for boolean type",
+                "items": {
+                    "#validation-keywords": "Validation keywords"
+                }
             },
             {
                 "title": "Null type",
                 "url": "/1.x/null.html",
-                "description": "Description for null type"
+                "description": "Description for null type",
+                "items": {
+                    "#validation-keywords": "Validation keywords"
+                }
             },
             {
                 "title": "Object type",
                 "url": "/1.x/object.html",
-                "description": "Keywords for object type"
+                "description": "Keywords for object type",
+                "items": {
+                    "#validation-keywords": {
+                        "title": "Validation keywords",
+                        "items": {
+                            "#properties": "properties",
+                            "#required": "required",
+                            "#dependencies": "dependencies",
+                            "#minproperties": "minProperties",
+                            "#maxproperties": "maxProperties",
+                            "#propertynames": "propertyNames",
+                            "#patternproperties": "patternProperties",
+                            "#additionalproperties": "additionalProperties"
+                        }
+                    }
+                }
             },
             {
                 "title": "Array type",
                 "url": "/1.x/array.html",
-                "description": "Keywords for array type"
+                "description": "Keywords for array type",
+                "items": {
+                    "#validation-keywords": {
+                        "title": "Validation keywords",
+                        "items": {
+                            "#minitems": "minItems",
+                            "#maxitems": "maxItems",
+                            "#uniqueitems": "uniqueItems",
+                            "#contains": "contains",
+                            "#items": "items",
+                            "#additionalitems": "additionalItems"
+                        }
+                    }
+                }
             },
             {
                 "title": "Formats",
                 "url": "/1.x/formats.html",
-                "description": "Default formats"
+                "description": "Default formats",
+                "items": {
+                    "#provided-formats": {
+                        "title": "Provided formats",
+                        "items": {
+                            "#date": "date",
+                            "#time": "time",
+                            "#date-time": "date-time",
+                            "#regex": "regex",
+                            "#email": "email",
+                            "#idn-email": "idn-email",
+                            "#hostname": "hostname",
+                            "#idn-hostname": "idn-hostname",
+                            "#ipv4": "ipv4",
+                            "#ipv6": "ipv6",
+                            "#json-pointer": "json-pointer",
+                            "#relative-json-pointer": "relative-json-pointer",
+                            "#uri": "uri",
+                            "#uri-reference": "uri-reference",
+                            "#uri-template": "uri-template",
+                            "#iri": "iri",
+                            "#iri-reference": "iri-reference"
+                        }
+                    }
+                }
             },
             {
                 "title": "Default value",
@@ -117,12 +203,31 @@
             {
                 "title": "Conditional subschemas",
                 "url": "/1.x/conditional-subschemas.html",
-                "description": "Keywords for applying conditional subschemas"
+                "description": "Keywords for applying conditional subschemas",
+                "items": {
+                    "#validation-keywords": {
+                        "title": "Validation keywords",
+                        "items": {
+                            "#not": "not",
+                            "#if-then-else": "if-then-else"
+                        }
+                    }
+                }
             },
             {
                 "title": "Multiple subschemas",
                 "url": "/1.x/multiple-subschemas.html",
-                "description": "Keywords for applying multiple subschemas"
+                "description": "Keywords for applying multiple subschemas",
+                "items": {
+                    "#validation-keywords": {
+                        "title": "Validation keywords",
+                        "items": {
+                            "#anyof": "anyOf",
+                            "#oneof": "oneOf",
+                            "allof": "allOf"
+                        }
+                    }
+                }
             }
         ]
     },
@@ -132,17 +237,43 @@
             {
                 "title": "References",
                 "url": "/1.x/ref-keyword.html",
-                "description": "$ref keyword"
+                "description": "$ref keyword",
+                "items": {
+                    "#ref-keyword": "`$ref` keyword"
+                }
             },
             {
                 "title": "Definitions",
                 "url": "/1.x/definitions.html",
-                "description": "definitions keyword"
+                "description": "definitions keyword",
+                "items": {
+                    "#examples": {
+                        "title": "Examples",
+                        "items": {
+                            "#definition-referencing-other-definition": "Definition referencing other definition",
+                            "#recursive-validation": "Recursive validation"
+                        }
+                    }
+                }
             },
             {
                 "title": "Pointers",
                 "url": "/1.x/pointers.html",
-                "description": "Schema referencing"
+                "description": "Schema referencing",
+                "items": {
+                    "#absolute-pointers": {
+                        "title": "Absolute pointers",
+                        "items": {
+                            "#using-absolute-pointers": "Using absolute pointers"
+                        }
+                    },
+                    "#relative-pointers": {
+                        "title": "Relative pointers",
+                        "items": {
+                            "#using-relative-pointers": "Using relative pointers"
+                        }
+                    }
+                }
             }
         ]
     },
@@ -152,22 +283,44 @@
             {
                 "title": "Variables",
                 "url": "/1.x/variables.html",
-                "description": "$vars keyword"
+                "description": "$vars keyword",
+                "items": {
+                    "#general-structure": {
+                        "title": "General structure",
+                        "items": {
+                            "#data-reference-values": "Data reference values"
+                        }
+                    },
+                    "#variables-and-uri-templates": "Variables and URI templates",
+                    "#global-variables": "Global variables"
+                }
             },
             {
                 "title": "URI Templates",
                 "url": "/1.x/uri-template.html",
-                "description": "Using URI templates with $vars keyword"
+                "description": "Using URI templates with $vars keyword",
+                "items": {
+                    "#expansion-examples": "Expansion examples",
+                    "#modifier-examples": "Modifier examples"
+                }
             },
             {
                 "title": "Filters",
                 "url": "/1.x/filters.html",
-                "description": "$filters keyword"
+                "description": "$filters keyword",
+                "items": {
+                    "#general-structure": "General structure"
+                }
             },
             {
                 "title": "Mappers",
                 "url": "/1.x/mappers.html",
-                "description": "$map keyword"
+                "description": "$map keyword",
+                "items": {
+                    "#general-structure": "General structure",
+                    "#mapping-arrays-using-each": "Mapping arrays using `$each`",
+                    "#complex-example": "Complex example"
+                }
             }
         ]
     },

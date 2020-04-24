@@ -6,8 +6,6 @@ description: the opis json schema validation using custom formats
 keywords: opis, json, schema, validation, format
 ---
 
-# Creating custom formats
-
 A custom format is an object implementing `\Opis\JsonSchema\IFormat` interface.
 The `validate` method receives the `mixed $data` as argument and must return 
 a `boolean` (`true` if the `$data` has the specified format, `false` otherwise).

@@ -6,8 +6,6 @@ description: using opis json schema $ref keyword to reuse internal definitions
 keywords: opis, json, schema, validation, reference, definitions, $ref
 ---
 
-# Internal definitions
-
 There are cases when you want to reuse validations that are specific only to
 that schema document. For example, we have a custom email validator, and
 a custom username validator, and we want to apply those validators multiple
@@ -15,6 +13,7 @@ times. Outside the schema document these validators aren't useful.
 This can be easily achieved using [`$ref` keyword](ref-keyword.html)
 and the [`definitions` keyword](#definitions).
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -44,29 +43,25 @@ and the [`definitions` keyword](#definitions).
   }
 }
 ```  
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"username": "opis", "primary_email": "opis@example.com"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"aliases": ["opis json schema", "opis the lib"]}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"other_emails": ["opis@example.com", "opis.lib@example.com"]}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"username": "ab", "primary_email": "opis@example.test"}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `{"aliases": ["opis", "ab"]}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `{"other_email": ["opis@example.test"]}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"username": "opis", "primary_email": "opis@example.com"}` - valid
-{:.alert.alert-success}
-
-`{"aliases": ["opis json schema", "opis the lib"]}` - valid
-{:.alert.alert-success}
-
-`{"other_emails": ["opis@example.com", "opis.lib@example.com"]}` - valid
-{:.alert.alert-success}
-
-`{"username": "ab", "primary_email": "opis@example.test"}` - invalid
-{:.alert.alert-danger}
-
-`{"aliases": ["opis", "ab"]}` - invalid
-{:.alert.alert-danger}
-
-`{"other_email": ["opis@example.test"]}` - invalid
-{:.alert.alert-danger}
 
 Ok, let's see what happens there. The confusing thing is the value of the
 `$ref` keyword, which is something like this `#/definitions/something`.
 That's an URI fragment (starts with `#`), and the rest of the string after
-the `#` represents a [json pointer](pointers.html). Json pointers are
+the `#` represents a [JSON pointer](pointers.html). JSON pointers are
 covered in the [next](pointers.html) chapter, but we still explain
  the behaviour in a few words, using our example.
 
@@ -104,16 +99,11 @@ And from here, descending into `custom-email` gives us
 
 Now, this is the value given by our json pointer.
 
-### definitions
-
-This keyword does not directly validate data, but it contains a map
-of validation schemas. The value of this keyword can be anything.
-This keyword is not required.
-
 ## Examples
 
 #### Definition referencing other definition
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -142,18 +132,20 @@ This keyword is not required.
   }
 }
 ```
-
-`{"name": "John", "personal_data": {"mail": "john@example.com"}}` - valid
-{:.alert.alert-success}
-
-`{"name": "John", "personal_data": {"mail": "invalid-email"}}` - invalid
-{:.alert.alert-danger}
-
-`{"name": "John", "personal_data": "john@example.com"}` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"name": "John", "personal_data": {"mail": "john@example.com"}}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"name": "John", "personal_data": {"mail": "invalid-email"}}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `{"name": "John", "personal_data": "john@example.com"}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 #### Recursive validation
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -184,10 +176,8 @@ This keyword is not required.
   }
 }
 ```
-
-Valid examples
-{:.text-success}
-
+{% endcapture %}
+{% capture valid_input %}
 ```json
 {
   "name": "John",
@@ -196,7 +186,7 @@ Valid examples
   }
 }
 ```
-
+{: style="margin-bottom: 16px"}
 ```json
 {
   "name": "John",
@@ -218,16 +208,15 @@ Valid examples
   }
 }
 ```
-
-Invalid examples
-{:.text-danger}
-
+{% endcapture %}
+{% capture invalid_input %}
 ```json
 {
   "name": "John",
   "best_friend": "The dog"
 }
 ```
+{: style="margin-bottom: 16px"}
 
 ```json
 {
@@ -238,3 +227,7 @@ Invalid examples
   }
 }
 ```
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Valid input" 3="Invalid input" _1=schema _2=valid_input _3=invalid_input %}
+
+

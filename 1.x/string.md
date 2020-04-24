@@ -6,31 +6,11 @@ description: php opis json schema validation of string and text containing unico
 keywords: opis, php, json, schema, string, text, validation, pattern, regex, mime, base64
 ---
 
-# String type
-
 The `string` type is used for validating strings/texts containing
 Unicode characters.
 
-```json
-{
-  "type": "string"
-}
-```
-
-`"some text"` - valid
-{:.alert.alert-success}
-
-`""` - valid (empty string)
-{:.alert.alert-success}
-
-`12` - invalid (is integer/number)
-{:.alert.alert-danger}
-
-`null` - invalid (is null)
-{:.alert.alert-danger}
-
 Please note that in order to calculate the length of a string,
-Opis Json Schema uses the following libraries/functions, 
+Opis JSON Schema uses the following libraries/functions, 
 depending which one is available on your system: 
 [Opis String](https://github.com/opis/string){:target="_blank"} 
 (recommended, add it with `composer require opis/string`),
@@ -38,18 +18,30 @@ depending which one is available on your system:
 (you must enable [mb_string](http://php.net/manual/en/book.mbstring.php){:target="_blank"} extension for PHP),
 [strlen](http://php.net/manual/en/function.strlen.php){:target="_blank"} 
 (will not always return the correct length of a string with Unicode characters).
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Important"}
+
+{% capture schema %}
+```json
+{
+  "type": "string"
+}
+```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"some text"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `""`{:.language-json} | *valid*{:.text-success.text-normal} - empty string |
+| `12`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number |
+| `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ## Validation keywords
 
 The following keywords are supported by the `string` type, and evaluated
 in the presented order. All keywords are optional.
-
-1. [minLength](#minlength)
-2. [maxLength](#maxlength)
-3. [pattern](#pattern)
-4. [contentEncoding](#contentencoding)
-5. [contentMediaType](#contentmediatype)
 
 ### minLength
 
@@ -57,6 +49,7 @@ A string is valid against this keyword if its length is greater then,
 or equal to, the value of this keyword. 
 Value of this keyword must be a non-negative integer.
 
+{% capture schema %}
 ```json
 {
   "type": "string",
@@ -66,15 +59,16 @@ Value of this keyword must be a non-negative integer.
 
 Valid if contains at least `3` characters.
 {:.blockquote-footer}
-
-`"abc"` - valid (length = 3)
-{:.alert.alert-success}
-
-`"abcd"` - valid (length > 3)
-{:.alert.alert-success}
-
-`"ab"` - invalid (length < 3)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - length = 3|
+| `"abcd"`{:.language-json} | *valid*{:.text-success.text-normal} - length > 3 |
+| `"ab"`{:.language-json} | *invalid*{:.text-danger.text-normal} - length < 3 |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### maxLength
 
@@ -82,6 +76,7 @@ A string is valid against this keyword if its length is lower then,
 or equal to, the value of this keyword. 
 Value of this keyword must be a non-negative integer.
 
+{% capture schema %}
 ```json
 {
   "type": "string",
@@ -91,18 +86,17 @@ Value of this keyword must be a non-negative integer.
 
 Valid if contains at most `3` characters.
 {:.blockquote-footer}
-
-`"ab"` - valid (length < 3)
-{:.alert.alert-success}
-
-`""` - valid (length < 3)
-{:.alert.alert-success}
-
-`"abcd"` - invalid (length > 3)
-{:.alert.alert-danger}
-
-`"abc"` - valid (length = 3)
-{:.alert.alert-success}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"ab"`{:.language-json} | *valid*{:.text-success.text-normal} - length < 3 |
+| `""`{:.language-json} | *valid*{:.text-success.text-normal} - length < 3 |
+| `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - length = 3 |
+| `"abcd"`{:.language-json} | *invalid*{:.text-danger.text-normal} - length > 3|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### pattern
 
@@ -113,8 +107,10 @@ expression.
 
 Please note that the delimiter used by Opis Json Schema is `\x07` (bell)
 and the modifier is `u` ([PCRE_UTF8](http://php.net/manual/en/reference.pcre.pattern.modifiers.php){:target="_blank"}).
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Important"}
 
+
+{% capture schema %}
 ```json
 {
   "type": "string",
@@ -125,18 +121,17 @@ and the modifier is `u` ([PCRE_UTF8](http://php.net/manual/en/reference.pcre.pat
 Valid if starts with `opis/` and is followed by either `-` (minus sign) or a lower case letter
 between `a` and `z`. The rest of the string can be any character.
 {:.blockquote-footer}
-
-`"opis/json-schema"` - valid
-{:.alert.alert-success}
-
-`"opis/--"` - valid
-{:.alert.alert-success}
-
-`"opis"` - invalid
-{:.alert.alert-danger}
-
-`"opis/Json-Schema"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"opis/json-schema"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"opis/--"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"opis"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"opis/Json-Schema"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 For more information about PHP regular expressions, you can read about
 - [Pattern Syntax](http://php.net/manual/en/reference.pcre.pattern.syntax.php){:target="_blank"}
@@ -152,6 +147,7 @@ Currently, there can only be two values for this keyword
 - `binary` - any string is valid
 - `base64` - the string must be a valid base64 encoded string
 
+{% capture schema %}
 ```json
 {
   "type": "string",
@@ -160,12 +156,16 @@ Currently, there can only be two values for this keyword
 ```
 Valid if contains only characters inside the base64 alphabet.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"b3Bpcy9qc29uLXNjaGVtYQ=="`{:.language-json} | *valid*{:.text-success.text-normal} - decodes to `"opis/json-schema"` |
+| `"opis/json-schema"`{:.language-json} | *invalid*{:.text-danger.text-normal} - the `-` character is not in the `base64` alphabet |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"b3Bpcy9qc29uLXNjaGVtYQ=="` - valid (decodes to `"opis/json-schema"`)
-{:.alert.alert-success}
-
-`"opis/json-schema"` - invalid (`-` character is not in the base64 alphabet)
-{:.alert.alert-danger}
 
 ### contentMediaType
 
@@ -181,6 +181,7 @@ Out of the box, Opis Json Schema comes with the following media types
 
 If you want to add new media types (MIME types), please read about [Media Types](php-media-type.html).
 
+{% capture schema %}
 ```json
 {
   "type": "string",
@@ -189,28 +190,23 @@ If you want to add new media types (MIME types), please read about [Media Types]
 ```
 Valid if the string contains valid JSON syntax.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"{\"a\": 1}"`{:.language-json} | *valid*{:.text-success.text-normal} - JSON object|
+| `"[\"a\", \"b\", 2]"`{:.language-json} | *valid*{:.text-success.text-normal} - JSON array|
+| `"\"text\""`{:.language-json} | *valid*{:.text-success.text-normal} - JSON string|
+| `"null"`{:.language-json} | *valid*{:.text-success.text-normal} - JSON null|
+| `"1-2-3"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"{a: 1}"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"a = 23"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"{\"a\": 1}"` - valid (json object)
-{:.alert.alert-success}
 
-`"[\"a\", \"b\", 2]"` - valid (json array)
-{:.alert.alert-success}
-
-`"\"text\""` - valid (json string)
-{:.alert.alert-success}
-
-`"null"` - valid (json null)
-{:.alert.alert-success}
-
-`"1-2-3"` - invalid
-{:.alert.alert-danger}
-
-`"{a: 1}"` - invalid
-{:.alert.alert-danger}
-
-`"a = 23"` - invalid
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "type": "string",
@@ -221,15 +217,15 @@ Valid if the string contains valid JSON syntax.
 Valid if contains only characters inside base64 alphabet, and the base64 decoded
 content contains valid JSON syntax.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"eyJhIjogMX0="`{:.language-json} | *valid*{:.text-success.text-normal} - decodes to `"{\"a\": 1}"` which is a JSON object |
+| `"bnVsbA=="`{:.language-json} | *valid*{:.text-success.text-normal} - decodes to `"null"` which is JSON null|
+| `"1-2-3"`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a base64 encoded string|
+| `"e2E6IDF9"`{:.language-json} | *invalid*{:.text-danger.text-normal} - decodes to `"{a: 1}"` which is not a JSON object|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"eyJhIjogMX0="` - valid (decodes to `"{\"a\": 1}"` which is a json object)
-{:.alert.alert-success}
-
-`"bnVsbA=="` - valid (decodes to `"null"` which is json null)
-{:.alert.alert-success}
-
-`"1-2-3"` - invalid (not a base64 encoded string)
-{:.alert.alert-danger}
-
-`"e2E6IDF9"` - invalid (decodes to `"{a: 1}"` which is not a json object)
-{:.alert.alert-danger}

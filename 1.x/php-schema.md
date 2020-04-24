@@ -6,8 +6,6 @@ description: the opis json schema validation internal structure of document
 keywords: opis, json, schema, validation, document, internal, structure
 ---
 
-# Internal structure of a schema document
-
 Opis Json Schema uses an internal representation of a schema document,
 which must implement `\Opis\JsonSchema\ISchema` interface.
 

@@ -6,30 +6,25 @@ description: php opis json schema validation of objects
 keywords: opis, php, json, schema, object, validation
 ---
 
-# Object type
-
 The `object` type is used for validating key-value maps (objects).
 
+{% capture schema %}
 ```json
 {
   "type": "object"
 }
 ```
-
-`{}` - valid (object with nu properties)
-{:.alert.alert-success}
-
-`{"prop1": "val1", "prop2": 2.5}` - valid
-{:.alert.alert-success}
-
-`12` - invalid (is integer/number)
-{:.alert.alert-danger}
-
-`null` - invalid (is null)
-{:.alert.alert-danger}
-
-`"some text"` - invalid (is string)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} - object with no properties |
+| `{"prop1": "val1", "prop2": 2.5}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `12`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number|
+| `"some text"`{:.language-json} | *invalid*{:.text-danger.text-normal} - is string|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ## Validation keywords
 
@@ -37,15 +32,6 @@ The following keywords are supported by the `object` type, and evaluated
 in the following order: `required`, `dependencies`, `minProperties`, `maxProperties`,
 `propertyNames`, `properties`, `patternProperties`, `additionalProperties`. 
 All keywords are optional.
-
-1. [properties](#properties)
-2. [required](#required)
-3. [dependencies](#dependencies)
-4. [minProperties](#minproperties)
-5. [maxProperties](#maxproperties)
-6. [propertyNames](#propertynames)
-7. [patternProperties](#patternproperties)
-8. [additionalProperties](#additionalproperties)
 
 ### properties
 
@@ -56,6 +42,7 @@ The value of this keyword must be an object, where properties must
 contain valid json schemas (objects or booleans). Only the property names
 that are present in both the object and the keyword value are checked.
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -73,25 +60,19 @@ that are present in both the object and the keyword value are checked.
 Property `a` must be a string and property `b` must be an
 integer, if present.
 {:.blockquote-footer}
-
-`{"a": "str", "b": 5}` - valid
-{:.alert.alert-success}
-
-`{"a": "str"}` - valid (`a` is a string)
-{:.alert.alert-success}
-
-`{"b": 5, "c": null}` - valid (`c` is an integer)
-{:.alert.alert-success}
-
-`{"prop1": 0, "prop2": "str"}` - valid (`a` and `b` properties are missing)
-{:.alert.alert-success}
-
-
-`{"a": 1, "b": 5}` - invalid (`a` is not a string)
-{:.alert.alert-danger}
-
-`{"a": 1, "b": "text"}` - invalid (`a` is not a string, `b` is not an integer)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "str", "b": 5}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} - `a` is a string|
+| `{"b": 5, "c": null}`{:.language-json} | *valid*{:.text-success.text-normal} - `c` is an integer|
+| `{"prop1": 0, "prop2": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} - both `a` and `b` properties are missing|
+| `{"a": 1, "b": 5}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `a` is not a string|
+| `{"a": 1, "b": "text"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `a` is not string and `b` is not an integer |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### required
 
@@ -99,6 +80,7 @@ An object is valid against this keyword if it contains all property names (keys)
 specified by the value of this keyword. The value of this keyword must be a
 non-empty array of strings representing property names.
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -108,18 +90,17 @@ non-empty array of strings representing property names.
 
 Object must have both `a` and `b` properties.
 {:.blockquote-footer}
-
-`{"a": 1, "b": 2, "c": 3}` - valid
-{:.alert.alert-success}
-
-`{"a": 1, "b": null}` - valid
-{:.alert.alert-success}
-
-`{"a": 1, "c": 3}` - invalid (missing property `b`)
-{:.alert.alert-danger}
-
-`{"c": 1, "d": 3}` - invalid (missing both `a` and `b` properties)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": 1, "b": 2, "c": 3}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": 1, "b": null}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": 1, "c": 3}`{:.language-json} | *invalid*{:.text-danger.text-normal} - property `b` is missing|
+| `{"c": 1, "d": 3}`{:.language-json} | *invalid*{:.text-danger.text-normal} - both `a` and `b` properties are missing |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### dependencies
 
@@ -135,6 +116,7 @@ contain all property names
 Only property names (from this keyword value) that are also present
 in the object are checked.
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -155,24 +137,20 @@ in the object are checked.
 If the object has property `a`, then it must also have `b` and `c`.
 If it has `c` then `b` can only be an integer.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"c": 1}`{:.language-json} | *valid*{:.text-success.text-normal} - `b` is not required |
+| `{"c": 1, "b": 4}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": 1, "b": 4, "c": 3, "d": true}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} - no dependencies |
+| `{"c": 1, "b": "str"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `b` must be an integer|
+| `{"a": 1, "b": "str"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `c` is not present|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"c": 1}` - valid (`b` is not required)
-{:.alert.alert-success}
-
-`{"c": 1, "b": 4}` - valid
-{:.alert.alert-success}
-
-`{"a": 1, "b": 4, "c": 3, "d": true}` - valid
-{:.alert.alert-success}
-
-`{"b": "str"}` - valid (no dependencies)
-{:.alert.alert-success}
-
-`{"c": 1, "b": "str"}` - invalid (`b` must be an integer)
-{:.alert.alert-danger}
-
-`{"a": 1, "b": "str"}` - invalid (`c` is not present)
-{:.alert.alert-danger}
 
 ### minProperties
 
@@ -180,6 +158,7 @@ An object is valid against this keyword if the number of properties it contains
 is greater then, or equal to, the value of this keyword. The value of this
 keyword must be a non-negative integer. Using `0` as a value has no effect.
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -189,18 +168,17 @@ keyword must be a non-negative integer. Using `0` as a value has no effect.
 
 Object must have at least `2` properties.
 {:.blockquote-footer}
-
-`{"a": "a", "b": "b", "c": "c"}` - valid (3 > 2)
-{:.alert.alert-success}
-
-`{"a": "a", "b": "b"}` - valid (2 = 2)
-{:.alert.alert-success}
-
-`{"a": "a"}` - invalid (1 < 2)
-{:.alert.alert-danger}
-
-`{}` - invalid (0 < 2)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "a", "b": "b", "c": "c"}`{:.language-json} | *valid*{:.text-success.text-normal} - has 3 properties |
+| `{"a": "a", "b": "b"}`{:.language-json} | *valid*{:.text-success.text-normal} - has 2 properties|
+| `{"a": "a"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - has a single property|
+| `{}`{:.language-json} | *invalid*{:.text-danger.text-normal} - has no properties|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### maxProperties
 
@@ -209,6 +187,7 @@ is lower then, or equal to, the value of this keyword. The value of this
 keyword must be a non-negative integer. Using `0` as a value means that
 the object must be empty (no properties).
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -218,18 +197,17 @@ the object must be empty (no properties).
 
 Object can have at most `2` properties.
 {:.blockquote-footer}
-
-`{"a": "a", "b": "b"}` - valid (2 = 2)
-{:.alert.alert-success}
-
-`{"a": "a"}` - valid (1 < 2)
-{:.alert.alert-success}
-
-`{}` - valid (0 < 2)
-{:.alert.alert-success}
-
-`{"a": "a", "b": "b", "c": "c"}` - invalid (3 > 2)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "a", "b": "b"}`{:.language-json} | *valid*{:.text-success.text-normal} - has 2 properties|
+| `{"a": "a"}`{:.language-json} | *valid*{:.text-success.text-normal} - has a single property|
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} - has no properties|
+| `{"a": "a", "b": "b", "c": "c"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - has more than 2 properties|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### propertyNames
 
@@ -239,8 +217,9 @@ json schema (an object or a boolean).
 
 Please note that the value of `propertyNames` (the schema) will always 
 test strings.
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Important"}
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -253,18 +232,16 @@ test strings.
 
 Every property name must have a minimum length of `2`.
 {:.blockquote-footer}
-
-`{"prop1": 0, "prop2": "str"}` - valid
-{:.alert.alert-success}
-
-`{"prop": null}` - valid
-{:.alert.alert-success}
-
-`{}` - valid
-{:.alert.alert-success}
-
-`{"prop": 1, "a": 2}` - invalid (length of `"a"` = 1 < 2)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"prop1": 0, "prop2": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"prop": 1, "a": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - length of `a` is smaller than `2`|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### patternProperties
 
@@ -275,6 +252,7 @@ The value of this keyword must an object, where
 the keys must be valid regular expressions and
 the corresponding values must be valid json schemas (object or boolean).
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -292,24 +270,19 @@ the corresponding values must be valid json schemas (object or boolean).
 Every property name that starts with `str-` must be a string and
 every property name that starts with `int-` must be an integer.
 {:.blockquote-footer}
-
-`{"str-a": "a"}` - valid
-{:.alert.alert-success}
-
-`{"int-i": 2}` - valid
-{:.alert.alert-success}
-
-`{"int-i": 2, "str-a": "a", "other": [1, 2]}` - valid (`other` property is not matched)
-{:.alert.alert-success}
-
-`{"other": "a"}` - valid (no property was matched)
-{:.alert.alert-success}
-
-`{"str-a": "a", "str-b": 2}` - invalid (`str-b` property is integer, not string)
-{:.alert.alert-danger}
-
-`{"str-a": "a", "int-b": 2.5}` - invalid (`int-b` property is float, not integer)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"str-a": "a"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"int-i": 2}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"int-i": 2, "str-a": "a", "other": [1, 2]}`{:.language-json} | *valid*{:.text-success.text-normal} - `other` property is not matched |
+| `{"other": "a"}`{:.language-json} | *valid*{:.text-success.text-normal} - no property was match |
+| `{"str-a": "a", "str-b": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `str-b` property is integer, not string|
+| `{"str-a": "a", "int-b": 2.5}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `int-b` property is float, not integer|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### additionalProperties
 
@@ -326,6 +299,7 @@ To be more concise, if we have _unchecked_ properties:
 - if the value is `false`, is never valid
 - if the value contains an object (schema), every property must be valid against that schema.
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -337,17 +311,19 @@ To be more concise, if we have _unchecked_ properties:
 
 Every property value of the object must be a string.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} - no properties to check|
+| `{"str-a": "a", "int-b": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `int-b` is integer, not string|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"a": "a", "b": "str"}` - valid
-{:.alert.alert-success}
 
-`{}` - valid (no properties to check)
-{:.alert.alert-success}
-
-`{"str-a": "a", "int-b": 2}` - invalid (`int-b` is integer, not string)
-{:.alert.alert-danger}
-
-
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -361,22 +337,21 @@ Every property value of the object must be a string.
 
 Object is invalid if contains other properties than `a` and `b`.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": 1}`{:.language-json} | *valid*{:.text-success.text-normal}|
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} - no properties to check|
+| `{"a": "a", "c": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - property `c` is not allowed|
+| `{"a": "a", "c": 2, "d": null}`{:.language-json} | *invalid*{:.text-danger.text-normal} - properties `c` and `d` are not allowed|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"a": "a", "b": "str"}` - valid
-{:.alert.alert-success}
 
-`{"a": 1}` - valid
-{:.alert.alert-success}
-
-`{}` - valid (no properties to check)
-{:.alert.alert-success}
-
-`{"a": "a", "c": 2}` - invalid (`c` property is not allowed)
-{:.alert.alert-danger}
-
-`{"a": "a", "c": 2, "d": null}` - invalid (`c` and `d` properties are not allowed)
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -390,25 +365,21 @@ Object is invalid if contains other properties than `a` and `b`.
 
 Object is invalid if property names doesn't start with `a` or `b`.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"aAA": "a", "bBB": "str"}`{:.language-json} | *valid*{:.text-success.text-normal}|
+| `{"abc": "a"}`{:.language-json} | *valid*{:.text-success.text-normal}|
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} - no properties to check|
+| `{"abc": "a", "extra": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `extra` starts with an `e`|
+| `{"abc": "a", "Bcd": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `Bcd` starts with a `B` instead of `b`|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"a": "a", "b": "str"}` - valid
-{:.alert.alert-success}
-
-`{"aAA": "a", "bBB": "str"}` - valid
-{:.alert.alert-success}
-
-`{"abc": "a"}` - valid
-{:.alert.alert-success}
-
-`{}` - valid (no properties to check)
-{:.alert.alert-success}
-
-`{"abc": "a", "extra": 2}` - invalid (`extra` starts with `e`)
-{:.alert.alert-danger}
-
-`{"abc": "a", "Bcd": 2}` - invalid (`Bcd` starts with `B` not `b`)
-{:.alert.alert-danger}
-
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -431,22 +402,18 @@ Object is invalid if property names, exluding `a` and `b` and
 those starting with `extra-`, are not integers. Also, properties starting with
 `extra-` must be strings.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"a": 1, "extra-a": "yes"}`{:.language-json} | *valid*{:.text-success.text-normal}|
+| `{"a": 1, "extra-a": "yes", "other": 1}`{:.language-json} | *valid*{:.text-success.text-normal}|
+| `{}`{:.language-json} | *valid*{:.text-success.text-normal} - no properties to check|
+| `{"a": "a", "extra": 3.5, "other": null}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `extra` and `other` must be integers|
+| `{"Extra-x": "x"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `Extra-x` does not start with `extra-`, so it must be an integer|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`{"a": "a", "b": "str"}` - valid
-{:.alert.alert-success}
-
-`{"a": 1, "extra-a": "yes"}` - valid
-{:.alert.alert-success}
-
-`{"a": 1, "extra-a": "yes", "other": 1}` - valid
-{:.alert.alert-success}
-
-`{}` - valid (no properties to check)
-{:.alert.alert-success}
-
-`{"a": "a", "extra": 3.5, "other": null}` - invalid (`extra` and `other` must be integers)
-{:.alert.alert-danger}
-
-`{"Extra-x": "x"}` - invalid (`Extra-x` does not start with `extra-`, so it must be integer)
-{:.alert.alert-danger}
 

@@ -6,9 +6,7 @@ description: reusing json schema using data mappers
 keywords: opis, json, schema, validation, mapper, $map, reuse
 ---
 
-# Mappers
-
-While json schema standard looks very flexible and powerfull,
+While JSON Schema standard looks very flexible and powerfull,
 it still lacks in providing reusability. And no, we are not talking
 about splitting schema into multiple documents, nor using definitions
 for common validations, these are great, but what happens if you need to change your

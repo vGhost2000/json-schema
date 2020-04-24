@@ -6,8 +6,6 @@ description: php opis json schema applyingmultiple subschemas with allOf, anyOf,
 keywords: opis, php, json, schema, multiple subschemas, allOf, anyOf, oneOf
 ---
 
-# Applying multiple subschemas
-
 It is a common practice to validate something against multiple subschemas,
 and the following keywords will help you combine subschemas into one validator.
 
@@ -16,20 +14,18 @@ and the following keywords will help you combine subschemas into one validator.
 The following keywords are supported by any instance type, and are evaluated in
 the presented order. All keywords are optional.
 
-1. [anyOf](#anyof)
-2. [oneOf](#oneof)
-3. [allOf](#allof)
-
 ### anyOf
 
 An instance is valid against this keyword if is valid against **at least one** schema
 defined by the value of this keyword. 
 The value of this keyword must be an array of valid json schemas (objects or booleans).
 
-Please note that Opis Json Schema will stop checking other subschemas once
+Please note that Opis JSON Schema will stop checking other subschemas once
 a subschema validates the instance. This is done for performance reasons.
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Important"}
 
+
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -46,22 +42,22 @@ a subschema validates the instance. This is done for performance reasons.
 
 The array is valid if contains `0` or `"ok"`.  Am empty array is not valid.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `["a", 1, 0, 2]`{:.language-json} | *valid*{:.text-success.text-normal} - one subschema match |
+| `["a", 0, "ok", 2]`{:.language-json} | *valid*{:.text-success.text-normal} - two subschemas match |
+| `["a", "b"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - no subschema match |
+| `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} - no subschema match |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`["a", 1, 0, 2]` - valid (one subschema matched)
-{:.alert.alert-success}
 
-`["a", 0, "ok", 2]` - valid (two subschemas matched)
-{:.alert.alert-success}
-
-`["a", "b"]` - invalid (no subschema matched)
-{:.alert.alert-danger}
-
-`[]` - invalid (no subschema matched)
-{:.alert.alert-danger}
-
-Please pay attention when using `anyOf`! You can write schemas that never
-validate!
-{:.alert.alert-warning}
+Please pay attention when using `anyOf`!
+You could unintentionally write schemas that never validate!
+{:.alert.alert-warning data-title="Important"}
 
 ```json
 {
@@ -72,8 +68,7 @@ validate!
   ]
 }
 ```
-
-This is never valid.
+This schema will never validate
 {:.blockquote-footer}
 
 ### oneOf
@@ -82,10 +77,11 @@ An instance is valid against this keyword if is valid against **exactly one** sc
 defined by the value of this keyword. 
 The value of this keyword must be an array of valid json schemas (objects or booleans).
 
-Please note that Opis Json Schema will stop checking other subschemas once
+Please note that Opis JSON Schema will stop checking other subschemas once
 two subschemas validate the instance. This is done for performance reasons.
-{:.alert.alert-info}
+{:.alert.alert-info data-title="Important"}
 
+{% capture schema %}
 ```json
 {
   "type": "array",
@@ -116,34 +112,26 @@ The array is valid in one of these cases: contains only positive numbers,
 contains only negative numbers, or contains only zeroes. 
 Am empty array is not valid.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[-1, -2, -3]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[0, -0, 0.0]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[-1, 1]`{:.language-json} | *invalid*{:.text-danger.text-normal} - two subschemas match |
+| `[-1, 0]`{:.language-json} | *invalid*{:.text-danger.text-normal} - two subschemas match |
+| `[1, 0]`{:.language-json} | *invalid*{:.text-danger.text-normal} - two subschemas match |
+| `[-1, 0, 1]`{:.language-json} | *invalid*{:.text-danger.text-normal} - three subschemas match |
+| `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} - no subschema match |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`[1, 2, 3]` - valid
-{:.alert.alert-success}
 
-`[-1, -2, -3]` - valid
-{:.alert.alert-success}
-
-`[0, -0, 0.0]` - valid
-{:.alert.alert-success}
-
-`[-1, 1]` - invalid (two subschemas matched)
-{:.alert.alert-danger}
-
-`[-1, 0]` - invalid (two subschemas matched)
-{:.alert.alert-danger}
-
-`[1, 0]` - invalid (two subschemas matched)
-{:.alert.alert-danger}
-
-`[-1, 0, 1]` - invalid (three subschemas matched)
-{:.alert.alert-danger}
-
-`[]` - invalid (no subschema matched)
-{:.alert.alert-danger}
-
-Please pay attention when using `oneOf`! You can write schemas that never
-validate!
-{:.alert.alert-warning}
+Please pay attention when using `oneOf`!
+You could unintentionally write schemas that never validate!
+{:.alert.alert-warning data-title="Important"}
 
 ```json
 {
@@ -153,8 +141,7 @@ validate!
   ]
 }
 ```
-
-This is never valid.
+This schema will never validate
 {:.blockquote-footer}
 
 ### allOf
@@ -163,6 +150,7 @@ An instance is valid against this keyword if is valid against **all** schemas
 defined by the value of this keyword. 
 The value of this keyword must be an array of valid json schemas (objects or booleans).
 
+{% capture schema %}
 ```json
 {
   "allOf": [
@@ -174,28 +162,24 @@ The value of this keyword must be an array of valid json schemas (objects or boo
 
 If instance is a `string` then it must have a minimum length of `2` and start with `a`.
 {:.blockquote-footer}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"ab"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `2`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"a"`{:.language-json} | *invalid*{:.text-danger.text-normal} - length is `1` |
+| `"Ab"`{:.language-json} | *invalid*{:.text-danger.text-normal} - must start with an `a` |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"abc"` - valid
-{:.alert.alert-success}
 
-`"ab"` - valid
-{:.alert.alert-success}
-
-`2` - valid
-{:.alert.alert-success}
-
-`[1, 2, 3]` - valid
-{:.alert.alert-success}
-
-`"a"` - invalid (length is `1`)
-{:.alert.alert-danger}
-
-`"Ab"` - invalid (must start with `a`)
-{:.alert.alert-danger}
-
-Please pay attention when using `allOf`! You can write schemas that never
-validate!
-{:.alert.alert-warning}
+Please pay attention when using `allOf`!
+You could unintentionally write schemas that never validate!
+{:.alert.alert-warning data-title="Important"}
 
 ```json
 {
@@ -205,6 +189,5 @@ validate!
   ]
 }
 ```
-
-This is never valid.
+This schema will never validate
 {:.blockquote-footer}

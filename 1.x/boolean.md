@@ -6,30 +6,26 @@ description: php opis json schema validation of boolean type
 keywords: opis, php, json, schema, boolean
 ---
 
-# Boolean type
+The `boolean` type is used to validate boolean values (`true` or `false`).
 
-The `boolean` type is used to validate only boolean values (`true` or `false`).
-
+{% capture schema %}
 ```json
 {
   "type": "boolean"
 }
 ```
-
-`true` - valid
-{:.alert.alert-success}
-
-`false` - valid
-{:.alert.alert-success}
-
-`"true"` - invalid (is string)
-{:.alert.alert-danger}
-
-`null` - invalid (is null)
-{:.alert.alert-danger}
-
-`0` - invalid (is integer/number)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `true`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `false`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"true"`{:.language-json} | *invalid*{:.text-danger.text-normal} - is string |
+| `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null|
+| `0`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ## Validation keywords
 

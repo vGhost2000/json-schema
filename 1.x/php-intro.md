@@ -6,8 +6,6 @@ description: using the opis json schema validation api in php
 keywords: opis, json, schema, validation, api, introduction, php
 ---
 
-# Opis Json Schema PHP API
-
 This intro page is here to help you quickly find relevant information
 when using Opis Json Schema. It is designed as a Q&A because we
 try to answer you to the expected (incipient) questions that

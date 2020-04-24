@@ -6,27 +6,25 @@ description: php opis json schema validation of null type
 keywords: opis, php, json, schema, null, validation
 ---
 
-# Null type
-
 The `null` type is used to validate the `null` value.
 
+{% capture schema %}
 ```json
 {
   "type": "null"
 }
 ```
-
-`null` - valid
-{:.alert.alert-success}
-
-`""` - invalid (is string)
-{:.alert.alert-danger}
-
-`false` - invalid (is boolean)
-{:.alert.alert-danger}
-
-`0` - invalid (is integer/number)
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `null`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `""`{:.language-json} | *invalid*{:.text-danger.text-normal} - is string |
+| `false`{:.language-json} | *invalid*{:.text-danger.text-normal} - is boolean|
+| `0`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ## Validation keywords
 

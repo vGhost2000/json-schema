@@ -6,8 +6,6 @@ description: the opis json schema loader/resolver system
 keywords: opis, json, schema, validation, loader, resolver
 ---
 
-# Loading and resolving json schemas
-
 The loader object must resolve a schema by URI using an implementation
 of `\Opis\JsonSchema\ISchemaLoader` interface.
 

@@ -6,9 +6,7 @@ description: using custom filters in json schema to validate data
 keywords: opis, json, schema, filter, $filters, validation
 ---
 
-# Filters
-
-Json Schema specification contains a lot of keywords to validate data,
+JSON Schema specification contains a lot of keywords to validate data,
 but most of them are only for _range check_ (like minimum, maximum, minLength, ...).
 So, what happens if you want to check if something exists in a database?
 Well, there cannot be such thing in json schema because it requires a lot 
@@ -20,15 +18,16 @@ by adding a new non-standard keyword named `$filters`.
 
 Custom filters can be expensive, so please note that `$filters` is the
 last property checked.
-{:.alert.alert-warning}
+{:.alert.alert-warning data-title="Important"}
 
 ## General structure
 
 In a json schema document, `$filters` can be: 
 a string, an object or an array of strings and objects.
 
-`$filters` keyword support is enabled by default, to disable it use `Opis\JsonSchema\Validator::filtersSupport(false)`.
-{:.alert.alert-info}
+`$filters` keyword support is enabled by default, to disable 
+it use `Opis\JsonSchema\Validator::filtersSupport(false)`{:.language-php}.
+{:.alert.alert-info data-title="Remember"}
 
 If your filter doesn't need any arguments (besides the value that is validated)
 you can use it like a string.
@@ -75,4 +74,4 @@ You can even use multiple filters by creating an array.
 
 Please note that if you use an array of filters and one filter doesn't
 validate the data, the remaining filters will not be called.
-{:.alert.alert-warning}
+{:.alert.alert-warning data-title="Important"}

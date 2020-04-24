@@ -6,8 +6,6 @@ description: about uri templates using opis json schema validation
 keywords: opis, json, schema, validation, uri, template, variable
 ---
 
-# URI templates
-
 URI templates help us dynamically reuse schemas based on the values of current data being validated.
 
 For simplicity, we can say that an URI template contains placeholders that will be replaced by
@@ -31,8 +29,7 @@ More details about the structure of uri templates can be found [here](https://to
 
 ## Expansion examples
 
-### Path
-
+{% capture data_1 %}
 ```json
 {
   "$ref": "{/var1,var2}",
@@ -42,11 +39,11 @@ More details about the structure of uri templates can be found [here](https://to
   }
 }
 ```
+Resulted `$ref` is `/a/b`
+{:.blockquote-footer}
+{% endcapture %}
 
-Resulted `$ref` is `/a/b`.
-
-### Query string
-
+{% capture data_2 %}
 ```json
 {
   "$ref": "{?var1,var2}",
@@ -57,7 +54,8 @@ Resulted `$ref` is `/a/b`.
 }
 ```
 
-Resulted `$ref` is `?var1=a&var2=b`.
+Resulted `$ref` is `?var1=a&var2=b`
+{:.blockquote-footer}
 
 ```json
 {
@@ -69,10 +67,10 @@ Resulted `$ref` is `?var1=a&var2=b`.
 }
 ```
 
-Resulted `$ref` is `?x=1&y=2&var1=a&var2=b`.
-
-### Fragment
-
+Resulted `$ref` is `?x=1&y=2&var1=a&var2=b`
+{:.blockquote-footer}
+{% endcapture %}
+{% capture data_3 %}
 ```json
 {
   "$ref": "{#var1}",
@@ -82,12 +80,15 @@ Resulted `$ref` is `?x=1&y=2&var1=a&var2=b`.
 }
 ```
 
-Resulted `$ref` is `#test`.
+Resulted `$ref` is `#test`
+{:.blockquote-footer}
+{% endcapture %}
+{% include tabs.html 1="Path" 2="Query string" 3="Fragment" _1=data_1 _2=data_2 _3=data_3 %}
+
 
 ## Modifier examples
 
-### Substrings
-
+{% capture data_1 %}
 ```json
 {
   "$ref": "{var:3}",
@@ -96,11 +97,10 @@ Resulted `$ref` is `#test`.
   }
 }
 ```
-
-Resulted `$ref` is `tes`.
-
-### Compositions
-
+Resulted `$ref` is `tes`
+{:.blockquote-footer}
+{% endcapture %}
+{% capture data_2 %}
 ```json
 {
   "$ref": "{?address*}",
@@ -114,4 +114,7 @@ Resulted `$ref` is `tes`.
 }
 ```
 
-Resulted `$ref` is `?city=Some%20city&street=Some%20street&number=5`.
+Resulted `$ref` is `?city=Some%20city&street=Some%20street&number=5`
+{:.blockquote-footer}
+{% endcapture %}
+{% include tabs.html 1="Substrings" 2="Compositions" _1=data_1 _2=data_2 %}

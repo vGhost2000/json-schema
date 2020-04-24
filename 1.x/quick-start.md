@@ -5,13 +5,6 @@ title: Quick start
 description: A short overview of the Opis JSON Schema library and of the JSON Schema standard
 keywords: opis, json, schema, validation, quick start
 ---
-# Quick start
-
-* [The setup](#the-setup)
-* [The validation schema](#the-validation-schema)
-* [The PHP part](#the-php-part)
-
-## The setup
 
 To better exemplify the benefits of using JSON Schema for validating JSON documents, were gonna build a validation 
 schema for a set of data representing the profile of some web application's user.

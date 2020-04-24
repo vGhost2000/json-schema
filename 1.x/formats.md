@@ -6,8 +6,6 @@ description: php opis json schema formats
 keywords: opis, php, json, schema, formats, date, time, email
 ---
 
-# Formats
-
 The `format` keyword performs a semantic validation on data.
 The value of this keyword must be a string, representig a format.
 The keyword behavior depends on the data type, meaning that
@@ -15,6 +13,7 @@ the same format name for a `string` behaves differently on a `number`,
 or is missing, because not all data types must implement a format and
 usually different data types have different formats.
 
+{% capture schema %}
 ```json
 {
     "format": "date"
@@ -23,410 +22,420 @@ usually different data types have different formats.
 
 `date` format is available only for strings.
 {:.blockquote-footer}
-
-`"1970-01-01"` - valid
-{:.alert.alert-success}
-
-`510` - valid (not a string)
-{:.alert.alert-success}
-
-`"test"` - invalid (not a date)
-{:.alert.alert-danger}
-
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"1970-01-01"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `510`{:.language-json} | *valid*{:.text-success.text-normal} - not a string|
+| `"test"`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a date|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ## Provided formats
 
 Opis Json Schema provides all the formats for `string` type defined in json schema specifications.
 
 Please note that formats starting with `idn-` or `iri` require [PHP intl extension](http://php.net/manual/en/book.intl.php){:target="_blank"} 
-to work correctly.
-{:.alert.alert-info}
-
-1. [data](#date)
-2. [time](#time)
-3. [date-time](#date-time)
-4. [regex](#regex)
-5. [email](#email)
-6. [idn-email](#idn-email)
-7. [hostname](#hostname)
-8. [idn-hostname](#idn-email)
-9. [ipv4](#ipv4)
-10. [ipv6](#ipv6)
-11. [json-pointer](#json-pointer)
-12. [relative-json-pointer](#relative-json-pointer)
-13. [uri](#uri)
-14. [uri-reference](#uri-reference)
-15. [uri-template](#uri-template)
-16. [iri](#iri)
-17. [iri-reference](#iri-reference)
+in order to work correctly.
+{:.alert.alert-info data-title="Important"}
 
 ### date
 
 A string is valid against this format if it represents a date in
 the following format: `YYYY-MM-DD`.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "date"
 }
 ```
-
-`"1970-01-01"` - valid
-{:.alert.alert-success}
-
-`"Jan. 1st, 1970"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"1970-01-01"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"Jan. 1st, 1970"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### time
 
 A string is valid against this format if it represents a time in
 the following format: `hh:mm:ss.sTZD`.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "time"
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"10:05:08"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"10:05:08.5"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"10:05:08-02:30"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"10:05:08Z"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"45:60:62"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"10:05"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"1 pm"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"10:05:08"` - valid
-{:.alert.alert-success}
-
-`"10:05:08.5"` - valid
-{:.alert.alert-success}
-
-`"10:05:08+01:00"` - valid
-{:.alert.alert-success}
-
-`"10:05:08-02:30"` - valid
-{:.alert.alert-success}
-
-`"10:05:08Z"` - valid
-{:.alert.alert-success}
-
-`"45:60:62"` - invalid
-{:.alert.alert-danger}
-
-`"10:05"` - invalid
-{:.alert.alert-danger}
-
-`"1 p.m.` - invalid
-{:.alert.alert-danger}
 
 ### date-time
 
 A string is valid against this format if it represents a date-time in
 the following format: `YYYY:MM::DDThh:mm:ss.sTZD`.
 
+
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "date-time"
 }
 ```
-
-`"1970-01-01T10:05:08"` - valid
-{:.alert.alert-success}
-
-`"1970-01-01T10:05:08.10"` - valid
-{:.alert.alert-success}
-
-`"1970-01-01T10:05:08+01:00"` - valid
-{:.alert.alert-success}
-
-`"Jan. 1st, 1970 at 1 p.m."` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"1970-01-01T10:05:08"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"1970-01-01T10:05:08.10"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"1970-01-01T10:05:08+01:00"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"Jan. 1st, 1970 at 1 pm"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### regex
 
 A string is valid against this format if it represents a
 valid regular expression.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "regex"
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"^[a-z]+$"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"a/b"`{:.language-json} | *invalid*{:.text-danger.text-normal} - slash is not escaped|
+| `"(a"`{:.language-json} | *invalid*{:.text-danger.text-normal} - incomplete group|
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"^[a-z]+$"` - valid
-{:.alert.alert-success}
-
-`"a/b"` - invalid (slash is not escaped)
-{:.alert.alert-danger}
-
-`"(a"` - invalid (incomplete group)
-{:.alert.alert-danger}
 
 ### email
 
 A string is valid against this format if it represents a
 valid e-mail address format.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "email"
 }
 ```
-
-`"john@example.com"` - valid
-{:.alert.alert-success}
-
-`"john(at)example.com"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"john@example.com"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"john(at)example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### idn-email
 
 A string is valid against this format if it represents a
 valid idn e-mail address format.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "idn-email"
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"실례@실례.테스트"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"john@example.com"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"1234"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"실례@실례.테스트"` - valid
-{:.alert.alert-success}
-
-`"john@example.com"` - valid
-{:.alert.alert-success}
-
-
-`"1234"` - invalid
-{:.alert.alert-danger}
 
 ### hostname
 
 A string is valid against this format if it represents a valid
 hostname.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "hostname"
 }
 ```
-
-`"www.example.com"` - valid
-{:.alert.alert-success}
-
-`"xn--4gbwdl.xn--wgbh1c"` - valid
-{:.alert.alert-success}
-
-`"not_a_valid_host_name"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"www.example.com"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"xn--4gbwdl.xn--wgbh1c"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"not_a_valid_host_name"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### idn-hostname
 
 A string is valid against this format if it represents a valid
 IDN hostname.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "idn-hostname"
 }
 ```
-
-`"실례.테스트"` - valid
-{:.alert.alert-success}
-
-`"〮실례.테스트"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"실례.테스트"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"〮실례.테스트"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### ipv4
 
 A string is valid against this format if it represents a valid
 IPv4 address.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "ipv4"
 }
 ```
-
-`"192.168.0.1"` - valid
-{:.alert.alert-success}
-
-`"192.168.1.1.1"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"192.168.0.1"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"192.168.1.1.1"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### ipv6
 
 A string is valid against this format if it represents a valid
 IPv6 address.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "ipv6"
 }
 ```
-
-`"::1"` - valid
-{:.alert.alert-success}
-
-`"12345::"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"::1"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"12345::"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### json-pointer
 
 A string is valid against this format if it represents a valid
 (absolute) json pointer.
 
+
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "json-pointer"
 }
 ```
-
-`"/a/b/c"` - valid
-{:.alert.alert-success}
-
-`"/a/~"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"/a/b/c"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"/a/~"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### relative-json-pointer
 
 A string is valid against this format if it represents a valid
 relative json pointer.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "relative-json-pointer"
 }
 ```
-
-`"0/a/b"` - valid
-{:.alert.alert-success}
-
-`"5/a/b#"` - valid
-{:.alert.alert-success}
-
-`"2#"` - valid
-{:.alert.alert-success}
-
-`"/a/b"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"0/a/b"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"5/a/b#"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"2#"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"/a/b"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### uri
 
 A string is valid against this format if it represents a valid
 uri.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "uri"
 }
 ```
-
-`"http://example.com/path?qs=v&qs2[1]=3#fragment"` - valid
-{:.alert.alert-success}
-
-`"http://a_example.com"` - invalid
-{:.alert.alert-danger}
-
-`"aaa/bbb.html"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"http://example.com/path?qs=v&qs2[1]=3#fragment"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://a_example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `"aaa/bbb.html"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### uri-reference
 
 A string is valid against this format if it represents a valid
 uri or uri reference.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "uri-reference"
 }
 ```
-
-`"aaa/bbb.html"` - valid
-{:.alert.alert-success}
-
-`"?a=b"` - valid
-{:.alert.alert-success}
-
-`"#fragment"` - valid
-{:.alert.alert-success}
-
-`"http://example.com"` - valid
-{:.alert.alert-success}
-
-`"http://a_example.com"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"aaa/bbb.html"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"?a=b"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"#fragment"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://example.com"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://a_example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### uri-template
 
 A string is valid against this format if it represents a valid
 uri template or uri-reference.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "uri-template"
 }
 ```
-
-`"/{+file}.html"` - valid
-{:.alert.alert-success}
-
-`"http://example.com/dictionary/{term:1}/{term}"` - valid
-{:.alert.alert-success}
-
-`"{?q,lang}"` - valid
-{:.alert.alert-success}
-
-`"http://a_example.com/file.php{?q,r}"` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"/{+file}.html"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://example.com/dictionary/{term:1}/{term}"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"{?q,lang}"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://a_example.com/file.php{?q,r}"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 ### iri
 
 A string is valid against this format if it represents a valid IRI.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "iri"
 }
 ```
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"http://ƒøø.ßår/?∂éœ=πîx#πîüx"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://ƒøø.com/blah_(wîkïpédiå)_blah#ßité-1"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http:// ƒøø.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
-`"http://ƒøø.ßår/?∂éœ=πîx#πîüx"` - valid
-{:.alert.alert-success}
-
-`"http://ƒøø.com/blah_(wîkïpédiå)_blah#ßité-1"` - valid
-{:.alert.alert-success}
-
-`"http:// ƒøø.com"` - invalid
-{:.alert.alert-danger}
 
 ### iri-reference
 
 A string is valid against this format if it represents a valid IRI reference.
 
+{% capture schema %}
 ```json
 {
     "type": "string",
     "format": "iri-reference"
 }
 ```
-
-`"//ƒøø.ßår/?∂éœ=πîx#πîüx"` - valid
-{:.alert.alert-success}
-
-`"#ƒrägmênt"` - valid
-{:.alert.alert-success}
-
-`"http://ƒøø.com/blah_(wîkïpédiå)_blah#ßité-1"` - valid
-{:.alert.alert-success}
-
-`"\\\\WINDOWS\\filëßåré` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `"//ƒøø.ßår/?∂éœ=πîx#πîüx"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"#ƒrägmênt"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"http://ƒøø.com/blah_(wîkïpédiå)_blah#ßité-1"`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `"\\\\WINDOWS\\filëßåré"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}

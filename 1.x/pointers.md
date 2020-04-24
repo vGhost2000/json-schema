@@ -6,11 +6,9 @@ description: using absolute and relative json pointers in opis json schema
 keywords: opis, json, schema, validation, pointer, relative, absolute, $ref
 ---
 
-# Json Pointers
-
-A json pointer is a way of traversing a json document by specifying the path
+A JSON pointer is a way of traversing a json document by specifying the path
 to the desired value.
-**Opis Json Schema** supports both [absolute](#absolute-pointers) and [relative](#relative-pointers) json schema pointers.
+**Opis JSON Schema** supports both [absolute](#absolute-pointers) and [relative](#relative-pointers) JSON schema pointers.
 
 ## Absolute pointers
 
@@ -45,17 +43,17 @@ Here are some examples about how absolute json pointers work:
 | Pointer | Value |
 |---------|-------|
 | `/` | _the document itself (root)_ |
-| `/name` | `"some product"` |
-| `/price` | `10.5` |
-| `/features/0` | `"easy to use"` |
-| `/features/1/url` | `"http://example.com"` |
-| `/info` | `{"onStock": true}` |
-| `/info/onStock` | `true` |
-| `/a~1b` | `"a"` |
-| `/inexistent/path` | error |
-{:.table.table-striped}
+| `/name` | `"some product"`{:.language-json} |
+| `/price` | `10.5`{:.language-json} |
+| `/features/0` | `"easy to use"`{:.language-json} |
+| `/features/1/url` | `"http://example.com"`{:.language-json} |
+| `/info` | `{"onStock": true}`{:.language-json} |
+| `/info/onStock` | `true`{:.language-json} |
+| `/a~1b` | `"a"`{:.language-json} |
+| `/inexistent/path` | *error*{:.text-danger.text-normal} |
+{:.table}
 
-You can find more details about the structure of absolute json pointers [here](https://tools.ietf.org/html/rfc6901){:target="_blank"}.
+You can find more details about the structure of absolute JSON pointers [here](https://tools.ietf.org/html/rfc6901){:target="_blank"}.
 
 ### Using absolute pointers
 
@@ -95,11 +93,11 @@ the desired schemas.
 |---------|-------|
 | `http://example.com/schema.json#` | _the document itself_ |
 | `http://example.com/schema.json#/` | _the document itself_ |
-| `http://example.com/schema.json#/definitions/name` | `{"type": "string", "minLength": 1}` |
-| `http://example.com/schema.json#/definitions/personal/email` | `{"type": "string", "format": "email"}` |
-| `http://example.com/schema.json#/definitions/personal/birthday` | `{"type": "string", "format": "date"}` |
-| `http://example.com/schema.json#/inexistent/path` | error |
-{:.table.table-striped}
+| `http://example.com/schema.json#/definitions/name` | `{"type": "string", "minLength": 1}`{:.language-json} |
+| `http://example.com/schema.json#/definitions/personal/email` | `{"type": "string", "format": "email"}`{:.language-json} |
+| `http://example.com/schema.json#/definitions/personal/birthday` | `{"type": "string", "format": "date"}`{:.language-json} |
+| `http://example.com/schema.json#/inexistent/path` | *error*{:.text-danger.text-normal} |
+{:.table}
 
 Now lets see a complex example that uses the [`$ref` keyword](ref-keyword.html#ref).
 
@@ -211,48 +209,49 @@ we have the following table
 
 | Pointer | Value |
 |---------|-------|
-| `0` | `10.5` |
-| `0#` | `"price"` |
+| `0` | `10.5`{:.language-json} |
+| `0#` | `"price"`{:.language-json} |
 | `1` | _the document itself (root)_ |
-| `1#` | error |
-| `1/name` | `"some product"` |
-| `1/info` | `{"onStock": true}` |
-| `1/info/onStock` | `true` |
-| `1/a~1b` | `"a"` |
-| `1/inexstent/path` | error |
-| `2` | error |
-{:.table.table-striped}
+| `1#` | *error*{:.text-danger.text-normal} |
+| `1/name` | `"some product"`{:.language-json} |
+| `1/info` | `{"onStock": true}`{:.language-json} |
+| `1/info/onStock` | `true`{:.language-json} |
+| `1/a~1b` | `"a"`{:.language-json} |
+| `1/inexstent/path` | *error*{:.text-danger.text-normal} |
+| `2` | *error*{:.text-danger.text-normal} |
+{:.table}
 
 Considering that our current location is `"http://example.com"` (absolute json pointer `/features/1/url`)
 we have the following table
 
 | Pointer | Value |
 |---------|-------|
-| `0` | `"http://example.com"` |
-| `0#` | `"url"` |
-| `1#` | `1` (array index) |
-| `1/name` | `"environment friendly"` |
-| `2#` | `"features"` |
-| `2/0` | `"easy to use"` |
-| `2/0#` | `0` (array index) |
+| `0` | `"http://example.com"`{:.language-json} |
+| `0#` | `"url"`{:.language-json} |
+| `1#` | `1`{:.language-json} (array index) |
+| `1/name` | `"environment friendly"`{:.language-json} |
+| `2#` | `"features"`{:.language-json} |
+| `2/0` | `"easy to use"`{:.language-json} |
+| `2/0#` | `0`{:.language-json} (array index) |
 | `3` | _the document itself (root)_ |
-| `3/price` | `10.5` |
-| `3/info/onStock` | `true` |
-| `3/inexstent/path` | error |
-| `3#` | error |
-| `4` | error |
-{:.table.table-striped}
+| `3/price` | `10.5`{:.language-json} |
+| `3/info/onStock` | `true`{:.language-json} |
+| `3/inexstent/path` | *error*{:.text-danger.text-normal} |
+| `3#` | *error*{:.text-danger.text-normal} |
+| `4` | *error*{:.text-danger.text-normal} |
+{:.table}
 
 You can find more details about the structure of relative json pointers [here](https://tools.ietf.org/html/draft-luff-relative-json-pointer-00){:target="_blank"}.
 
 ### Using relative pointers
 
-You can use absolute json pointers to fetch data/subschemas defined in the document.
+You can use absolute JSON pointers to fetch data/subschemas defined in the document.
 You cannot use relative pointers in the way you use [absolute pointers](#absolute-pointers),
 so you cannot use them in an URI.
 
 Here is an example using the [`$ref` keyword](ref-keyword.html).
 
+{% capture schema %}
 ```json
 {
   "type": "object",
@@ -267,22 +266,21 @@ Here is an example using the [`$ref` keyword](ref-keyword.html).
   }
 }
 ```
-
-`{"first_email": "john@example.com", "second_email: "opis@example.com"}` - valid
-{:.alert.alert-success}
-
-`{"second_email: "opis@example.com"}` - valid
-{:.alert.alert-success}
-
-`{"first_email": "john@example.com", "second_email: "invalid-email"}` - invalid
-{:.alert.alert-danger}
-
-`{"second_email: "invalid-email"}` - invalid
-{:.alert.alert-danger}
+{% endcapture %}
+{% capture data %}
+|Input|Status|
+|-----|------|
+| `{"first_email": "john@example.com", "second_email: "opis@example.com"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"second_email: "opis@example.com"}`{:.language-json} | *valid*{:.text-success.text-normal} |
+| `{"first_email": "john@example.com", "second_email: "invalid-email"}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+| `{"second_email: "invalid-email"}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
+{:.table}
+{% endcapture %}
+{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
 
 These are the steps taken in order to perform validation of `second_email` property:
 
-1. The _current_ location is `{"$ref": "1/first_email"}` (the value of `second_email` property)
+1. The _current_ location is `{"$ref": "1/first_email"}`{:.language-json} (the value of `second_email` property)
 2. Ascending `1` level we end up at the value of `properties` property
-3. Descending into `first_email` and we get `{"type": "string", "format": "email"}`
+3. Descending into `first_email` and we get `{"type": "string", "format": "email"}`{:.language-json}
 4. Use the subschema to validate the value of `second_email` property
