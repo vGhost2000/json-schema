@@ -15,7 +15,7 @@ The `number` type is used for validating integer and float values.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `5`{:.language-json} | *valid*{:.text-success.text-normal} - integer |
@@ -24,7 +24,7 @@ The `number` type is used for validating integer and float values.
 | `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ## Validation keywords
 
@@ -47,7 +47,7 @@ Value of this keyword must be a number (integer or float).
 Valid if the number is at least `10.5`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `11`{:.language-json} | *valid*{:.text-success.text-normal} - is greater |
@@ -56,7 +56,7 @@ Valid if the number is at least `10.5`.
 | `10.49`{:.language-json} | *invalid*{:.text-danger.text-normal} - is lower|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### exclusiveMinimum
 
@@ -75,7 +75,7 @@ then the `minimum` keyword is required and is used as reference for comparison.
 Valid if the number is greater than `10.5`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `11`{:.language-json} | *valid*{:.text-success.text-normal} - is greater |
@@ -84,7 +84,7 @@ Valid if the number is greater than `10.5`.
 | `10`{:.language-json} | *invalid*{:.text-danger.text-normal} - is lower|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -98,7 +98,7 @@ Valid if the number is greater than `10.5`.
 Valid if the number is greater than `10.5`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `11`{:.language-json} | *valid*{:.text-success.text-normal} - is greater |
@@ -107,7 +107,7 @@ Valid if the number is greater than `10.5`.
 | `10`{:.language-json} | *invalid*{:.text-danger.text-normal} - is lower|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### maximum
 
@@ -125,7 +125,7 @@ Value of this keyword must be a number (integer or float).
 Valid if the number is at most `10.5`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `10`{:.language-json} | *valid*{:.text-success.text-normal} - is lower |
@@ -134,7 +134,7 @@ Valid if the number is at most `10.5`.
 | `11`{:.language-json} | *invalid*{:.text-danger.text-normal} - is greater|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### exclusiveMaximum
 
@@ -153,7 +153,7 @@ then the `maximum` keyword is required and is used as reference for comparison.
 Valid if the number is lower than `10.5`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `10`{:.language-json} | *valid*{:.text-success.text-normal} - is lower |
@@ -162,7 +162,7 @@ Valid if the number is lower than `10.5`.
 | `11`{:.language-json} | *invalid*{:.text-danger.text-normal} - is greater|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -176,7 +176,7 @@ Valid if the number is lower than `10.5`.
 Valid if the number is lower than `10.5`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `10`{:.language-json} | *valid*{:.text-success.text-normal} - is lower |
@@ -185,7 +185,7 @@ Valid if the number is lower than `10.5`.
 | `11`{:.language-json} | *invalid*{:.text-danger.text-normal} - is greater|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### multipleOf
 
@@ -203,7 +203,7 @@ Value of this keyword must be a strictly positive number (zero is not allowed).
 Valid only if the result of the division between the given number and `0.5` is an integer
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `10`{:.language-json} | *valid*{:.text-success.text-normal} - `10 / 0.5 = 20` |
@@ -213,5 +213,5 @@ Valid only if the result of the division between the given number and `0.5` is a
 | `-3.6`{:.language-json} | *invalid*{:.text-danger.text-normal} - `-3.6 / 0.5 = -7.2` |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 

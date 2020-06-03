@@ -32,7 +32,7 @@ The value of this keyword must be a valid json schema (object or boolean).
 Accept anything but strings
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `-2.3`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -43,7 +43,7 @@ Accept anything but strings
 | `"some string"`{:.language-json} | *invalid*{:.text-danger.text-normal}|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 Please pay attention when using `not`!
 You could unintentionally write schemas that never validate!
@@ -94,7 +94,7 @@ If the instance is a `string` then must have a minimum length of `3`, else
 it must be `0`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 3 |
@@ -106,7 +106,7 @@ it must be `0`.
 | `["abc"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string and not `0`|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 {% capture schema %}
 ```json
@@ -124,7 +124,7 @@ If the instance is a `string` then must have a minimum length of `3`, else
 it is invalid.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - string of length 3 |
@@ -134,7 +134,7 @@ it is invalid.
 | `["abc"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -153,7 +153,7 @@ If the instance is a `string` consider it valid, else
 it is valid only when `0`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -164,5 +164,5 @@ it is valid only when `0`.
 | `["abc"]`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string and not `0`|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 

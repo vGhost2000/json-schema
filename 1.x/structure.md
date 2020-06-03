@@ -70,14 +70,14 @@ Validation status is keyword dependent (in this case) the data is valid
 only if it holds a string.
 {:.blockquote-footer}
 {% endcapture %}
-{%capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"test"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `123`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 Some keywords are purely decorative, like metadata keywords, which just describe the author intent.
 Others are for identifying a document or a subschema, and the rest of them are for
@@ -214,7 +214,7 @@ in depth in the next chapters.
 }
 ```
 {% endcapture %}
-{% capture data%}
+{% capture examples %}
 | Input | Status |
 |-------|--------|
 | `{"name": "John", "email": "john@example.com", "age": 25}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -226,7 +226,7 @@ in depth in the next chapters.
 | `"john@example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} - must be an object |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### Validating a list
 
@@ -241,7 +241,7 @@ in depth in the next chapters.
 }
 ```
 {% endcapture %}
-{% capture data%}
+{% capture examples %}
 |-------|--------|
 | `[1, "a"]`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `[-5.1, 10.8, 2]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -251,4 +251,4 @@ in depth in the next chapters.
 | `{"0": 1, "1": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - not an array |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}

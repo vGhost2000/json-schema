@@ -15,7 +15,7 @@ The `array` type is used for validating JSON indexed arrays.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[]`{:.language-json} | *valid*{:.text-success.text-normal} - empty array |
@@ -26,7 +26,7 @@ The `array` type is used for validating JSON indexed arrays.
 | `{"0": 1, "1": 2, "2": 3}`{:.language-json} | *invalid*{:.text-danger.text-normal} - is object|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ## Validation keywords
@@ -52,7 +52,7 @@ The value of this keyword must be a non-negative integer.
 Array must have at least `2` items.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} - contains more than 2 items |
@@ -61,7 +61,7 @@ Array must have at least `2` items.
 | `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} - contains no items|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### maxItems
 
@@ -80,7 +80,7 @@ The value of this keyword must be a non-negative integer.
 Array can have at most `2` items.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, 2]`{:.language-json} | *valid*{:.text-success.text-normal} - contains 2 items |
@@ -89,7 +89,7 @@ Array can have at most `2` items.
 | `[1, 2, 3]`{:.language-json} | *invalid*{:.text-danger.text-normal} - contains more than 2 items|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### uniqueItems
 
@@ -109,7 +109,7 @@ validation will be ignored.
 Array must have unique items (for every data type).
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -122,7 +122,7 @@ Array must have unique items (for every data type).
 | `[{"a": 1, "b": 2}, {"a": 1, "c": 2}, {"a": 1, "b": 2}]`{:.language-json} | *invalid*{:.text-danger.text-normal} - duplicate `{"a": 1, "b": 2}`|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### contains
 
@@ -146,7 +146,7 @@ Please note that an empty array will never be valid against this keyword.
 Array must contain at least one integer.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -157,7 +157,7 @@ Array must contain at least one integer.
 | `[2.3, 4.5, -6.7]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### items
 
@@ -186,7 +186,7 @@ is present - which will decide the validity.
 Array must contain only positive integers.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -196,7 +196,7 @@ Array must contain only positive integers.
 | `["a", 2]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -214,7 +214,7 @@ First item of the array must be an integer and the second a string.
 Other items can be anything.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, "a"]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -226,7 +226,7 @@ Other items can be anything.
 | `[5, 6]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### additionalItems
 
@@ -256,7 +256,7 @@ First item of the array must be an integer and the second a string.
 Other items can only be booleans.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, "a", true, false, true, true]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -268,4 +268,4 @@ Other items can only be booleans.
 | `[1, true, false]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}

@@ -43,7 +43,7 @@ a subschema validates the instance. This is done for performance reasons.
 The array is valid if contains `0` or `"ok"`.  Am empty array is not valid.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `["a", 1, 0, 2]`{:.language-json} | *valid*{:.text-success.text-normal} - one subschema match |
@@ -52,7 +52,7 @@ The array is valid if contains `0` or `"ok"`.  Am empty array is not valid.
 | `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} - no subschema match |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 Please pay attention when using `anyOf`!
@@ -113,7 +113,7 @@ contains only negative numbers, or contains only zeroes.
 Am empty array is not valid.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `[1, 2, 3]`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -126,7 +126,7 @@ Am empty array is not valid.
 | `[]`{:.language-json} | *invalid*{:.text-danger.text-normal} - no subschema match |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 Please pay attention when using `oneOf`!
@@ -163,7 +163,7 @@ The value of this keyword must be an array of valid json schemas (objects or boo
 If instance is a `string` then it must have a minimum length of `2` and start with `a`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -174,7 +174,7 @@ If instance is a `string` then it must have a minimum length of `2` and start wi
 | `"Ab"`{:.language-json} | *invalid*{:.text-danger.text-normal} - must start with an `a` |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 Please pay attention when using `allOf`!

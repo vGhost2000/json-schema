@@ -27,7 +27,7 @@ depending which one is available on your system:
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"some text"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -36,7 +36,7 @@ depending which one is available on your system:
 | `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ## Validation keywords
 
@@ -60,7 +60,7 @@ Value of this keyword must be a non-negative integer.
 Valid if contains at least `3` characters.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"abc"`{:.language-json} | *valid*{:.text-success.text-normal} - length = 3|
@@ -68,7 +68,7 @@ Valid if contains at least `3` characters.
 | `"ab"`{:.language-json} | *invalid*{:.text-danger.text-normal} - length < 3 |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### maxLength
 
@@ -87,7 +87,7 @@ Value of this keyword must be a non-negative integer.
 Valid if contains at most `3` characters.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"ab"`{:.language-json} | *valid*{:.text-success.text-normal} - length < 3 |
@@ -96,7 +96,7 @@ Valid if contains at most `3` characters.
 | `"abcd"`{:.language-json} | *invalid*{:.text-danger.text-normal} - length > 3|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### pattern
 
@@ -122,7 +122,7 @@ Valid if starts with `opis/` and is followed by either `-` (minus sign) or a low
 between `a` and `z`. The rest of the string can be any character.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"opis/json-schema"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -131,7 +131,7 @@ between `a` and `z`. The rest of the string can be any character.
 | `"opis/Json-Schema"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 For more information about PHP regular expressions, you can read about
 - [Pattern Syntax](http://php.net/manual/en/reference.pcre.pattern.syntax.php){:target="_blank"}
@@ -157,14 +157,14 @@ Currently, there can only be two values for this keyword
 Valid if contains only characters inside the base64 alphabet.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"b3Bpcy9qc29uLXNjaGVtYQ=="`{:.language-json} | *valid*{:.text-success.text-normal} - decodes to `"opis/json-schema"` |
 | `"opis/json-schema"`{:.language-json} | *invalid*{:.text-danger.text-normal} - the `-` character is not in the `base64` alphabet |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ### contentMediaType
@@ -191,7 +191,7 @@ If you want to add new media types (MIME types), please read about [Media Types]
 Valid if the string contains valid JSON syntax.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"{\"a\": 1}"`{:.language-json} | *valid*{:.text-success.text-normal} - JSON object|
@@ -203,7 +203,7 @@ Valid if the string contains valid JSON syntax.
 | `"a = 23"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -218,7 +218,7 @@ Valid if contains only characters inside base64 alphabet, and the base64 decoded
 content contains valid JSON syntax.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"eyJhIjogMX0="`{:.language-json} | *valid*{:.text-success.text-normal} - decodes to `"{\"a\": 1}"` which is a JSON object |
@@ -227,5 +227,5 @@ content contains valid JSON syntax.
 | `"e2E6IDF9"`{:.language-json} | *invalid*{:.text-danger.text-normal} - decodes to `"{a: 1}"` which is not a JSON object|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 

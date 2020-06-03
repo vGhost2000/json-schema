@@ -47,14 +47,14 @@ The custom email validator.
 The user validator.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"name": "Opis", "email": "opis@example.test"}`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `{"name": "Opis", "email": "opis@example.com"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `pattern` not matched|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 And what happens here is something which produces a result similar to

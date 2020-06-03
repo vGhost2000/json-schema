@@ -15,7 +15,7 @@ The `object` type is used for validating key-value maps (objects).
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{}`{:.language-json} | *valid*{:.text-success.text-normal} - object with no properties |
@@ -24,7 +24,7 @@ The `object` type is used for validating key-value maps (objects).
 | `"some text"`{:.language-json} | *invalid*{:.text-danger.text-normal} - is string|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ## Validation keywords
 
@@ -61,7 +61,7 @@ Property `a` must be a string and property `b` must be an
 integer, if present.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "str", "b": 5}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -72,7 +72,7 @@ integer, if present.
 | `{"a": 1, "b": "text"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `a` is not string and `b` is not an integer |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### required
 
@@ -91,7 +91,7 @@ non-empty array of strings representing property names.
 Object must have both `a` and `b` properties.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": 1, "b": 2, "c": 3}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -100,7 +100,7 @@ Object must have both `a` and `b` properties.
 | `{"c": 1, "d": 3}`{:.language-json} | *invalid*{:.text-danger.text-normal} - both `a` and `b` properties are missing |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### dependencies
 
@@ -138,7 +138,7 @@ If the object has property `a`, then it must also have `b` and `c`.
 If it has `c` then `b` can only be an integer.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"c": 1}`{:.language-json} | *valid*{:.text-success.text-normal} - `b` is not required |
@@ -149,7 +149,7 @@ If it has `c` then `b` can only be an integer.
 | `{"a": 1, "b": "str"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `c` is not present|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ### minProperties
@@ -169,7 +169,7 @@ keyword must be a non-negative integer. Using `0` as a value has no effect.
 Object must have at least `2` properties.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "a", "b": "b", "c": "c"}`{:.language-json} | *valid*{:.text-success.text-normal} - has 3 properties |
@@ -178,7 +178,7 @@ Object must have at least `2` properties.
 | `{}`{:.language-json} | *invalid*{:.text-danger.text-normal} - has no properties|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### maxProperties
 
@@ -198,7 +198,7 @@ the object must be empty (no properties).
 Object can have at most `2` properties.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "a", "b": "b"}`{:.language-json} | *valid*{:.text-success.text-normal} - has 2 properties|
@@ -207,7 +207,7 @@ Object can have at most `2` properties.
 | `{"a": "a", "b": "b", "c": "c"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - has more than 2 properties|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### propertyNames
 
@@ -233,7 +233,7 @@ test strings.
 Every property name must have a minimum length of `2`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"prop1": 0, "prop2": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -241,7 +241,7 @@ Every property name must have a minimum length of `2`.
 | `{"prop": 1, "a": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - length of `a` is smaller than `2`|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### patternProperties
 
@@ -271,7 +271,7 @@ Every property name that starts with `str-` must be a string and
 every property name that starts with `int-` must be an integer.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"str-a": "a"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -282,7 +282,7 @@ every property name that starts with `int-` must be an integer.
 | `{"str-a": "a", "int-b": 2.5}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `int-b` property is float, not integer|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### additionalProperties
 
@@ -312,7 +312,7 @@ To be more concise, if we have _unchecked_ properties:
 Every property value of the object must be a string.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -320,7 +320,7 @@ Every property value of the object must be a string.
 | `{"str-a": "a", "int-b": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `int-b` is integer, not string|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -338,7 +338,7 @@ Every property value of the object must be a string.
 Object is invalid if contains other properties than `a` and `b`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -348,7 +348,7 @@ Object is invalid if contains other properties than `a` and `b`.
 | `{"a": "a", "c": 2, "d": null}`{:.language-json} | *invalid*{:.text-danger.text-normal} - properties `c` and `d` are not allowed|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 {% capture schema %}
@@ -366,7 +366,7 @@ Object is invalid if contains other properties than `a` and `b`.
 Object is invalid if property names doesn't start with `a` or `b`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -377,7 +377,7 @@ Object is invalid if property names doesn't start with `a` or `b`.
 | `{"abc": "a", "Bcd": 2}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `Bcd` starts with a `B` instead of `b`|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 {% capture schema %}
 ```json
@@ -403,7 +403,7 @@ those starting with `extra-`, are not integers. Also, properties starting with
 `extra-` must be strings.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": "a", "b": "str"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -414,6 +414,6 @@ those starting with `extra-`, are not integers. Also, properties starting with
 | `{"Extra-x": "x"}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `Extra-x` does not start with `extra-`, so it must be an integer|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 

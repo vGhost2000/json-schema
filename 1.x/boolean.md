@@ -15,7 +15,7 @@ The `boolean` type is used to validate boolean values (`true` or `false`).
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `true`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -25,7 +25,7 @@ The `boolean` type is used to validate boolean values (`true` or `false`).
 | `0`{:.language-json} | *invalid*{:.text-danger.text-normal} - is integer/number|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ## Validation keywords
 

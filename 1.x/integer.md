@@ -16,7 +16,7 @@ for validating only integer numbers.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `5`{:.language-json} | *valid*{:.text-success.text-normal} - integer |
@@ -26,7 +26,7 @@ for validating only integer numbers.
 | `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 This type was added in order to simplify the writing of JSON schemas, because
 in reality it is just syntactic sugar for the `number` type having the keyword

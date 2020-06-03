@@ -28,7 +28,7 @@ To disable it, just pass `false` to the `Opis\JsonSchema\Validator::defaultSuppo
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"prop1": "string"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -36,7 +36,7 @@ To disable it, just pass `false` to the `Opis\JsonSchema\Validator::defaultSuppo
 | `{"prop1": 5}`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a string|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 Please pay attention when using `default`! The value of the keyword must pass
@@ -60,7 +60,7 @@ This will not be valid if `prop1` is missing because
 the default value is not a string.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"prop1": "string"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -68,4 +68,4 @@ the default value is not a string.
 | `{"prop1": null}`{:.language-json} | *invalid*{:.text-danger.text-normal} - `null` is not a string|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}

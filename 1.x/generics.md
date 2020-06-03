@@ -26,7 +26,7 @@ valid list of [data types][data_types].
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"some text"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -35,7 +35,7 @@ valid list of [data types][data_types].
 | `null`{:.language-json} | *invalid*{:.text-danger.text-normal} - is null |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 When specifying multiple types, their order is irrelevant to the validation process, but
 you should make sure that a data type is specified only once. 
@@ -47,7 +47,7 @@ you should make sure that a data type is specified only once.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": 1}`{:.language-json} | *valid*{:.text-success.text-normal} - is object|
@@ -56,7 +56,7 @@ you should make sure that a data type is specified only once.
 | `[{"a": 1}, {"b": 2}]`{:.language-json} | *invalid*{:.text-danger.text-normal} - is array |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 {% capture schema %}
 ```json
@@ -65,7 +65,7 @@ you should make sure that a data type is specified only once.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `-10.5`{:.language-json} | *valid*{:.text-success.text-normal} - is number|
@@ -76,7 +76,7 @@ you should make sure that a data type is specified only once.
 | `[1, 2, 3]`{:.language-json} | *invalid*{:.text-danger.text-normal} - is array |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ## const
 
@@ -92,7 +92,7 @@ value of this keyword. The value of this keyword can be anything.
 Validates if equals to `"test"`.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"test"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -101,7 +101,7 @@ Validates if equals to `"test"`.
 | `3.4`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 {% capture schema %}
 ```json
@@ -115,7 +115,7 @@ Validates if equals to `"test"`.
 Validates if the object have the same properties and values (order of properties does not matter).
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"a": 1, "b": "2"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -124,7 +124,7 @@ Validates if the object have the same properties and values (order of properties
 | `5.10`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ## enum
@@ -141,7 +141,7 @@ An empty array is not allowed.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"a"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -154,7 +154,7 @@ An empty array is not allowed.
 | `["a", "b", 1, null]`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 [data_types]: ./structure.html#data-types "Data types"

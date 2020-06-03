@@ -23,7 +23,7 @@ usually different data types have different formats.
 `date` format is available only for strings.
 {:.blockquote-footer}
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"1970-01-01"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -31,7 +31,7 @@ usually different data types have different formats.
 | `"test"`{:.language-json} | *invalid*{:.text-danger.text-normal} - not a date|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ## Provided formats
 
@@ -54,14 +54,14 @@ the following format: `YYYY-MM-DD`.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"1970-01-01"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `"Jan. 1st, 1970"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### time
 
@@ -76,7 +76,7 @@ the following format: `hh:mm:ss.sTZD`.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"10:05:08"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -88,7 +88,7 @@ the following format: `hh:mm:ss.sTZD`.
 | `"1 pm"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ### date-time
@@ -105,7 +105,7 @@ the following format: `YYYY:MM::DDThh:mm:ss.sTZD`.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"1970-01-01T10:05:08"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -114,7 +114,7 @@ the following format: `YYYY:MM::DDThh:mm:ss.sTZD`.
 | `"Jan. 1st, 1970 at 1 pm"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### regex
 
@@ -129,7 +129,7 @@ valid regular expression.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"^[a-z]+$"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -137,7 +137,7 @@ valid regular expression.
 | `"(a"`{:.language-json} | *invalid*{:.text-danger.text-normal} - incomplete group|
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ### email
@@ -153,14 +153,14 @@ valid e-mail address format.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"john@example.com"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `"john(at)example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### idn-email
 
@@ -175,7 +175,7 @@ valid idn e-mail address format.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"실례@실례.테스트"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -183,7 +183,7 @@ valid idn e-mail address format.
 | `"1234"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ### hostname
@@ -199,7 +199,7 @@ hostname.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"www.example.com"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -207,7 +207,7 @@ hostname.
 | `"not_a_valid_host_name"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### idn-hostname
 
@@ -222,14 +222,14 @@ IDN hostname.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"실례.테스트"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `"〮실례.테스트"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### ipv4
 
@@ -244,14 +244,14 @@ IPv4 address.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"192.168.0.1"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `"192.168.1.1.1"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### ipv6
 
@@ -266,14 +266,14 @@ IPv6 address.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"::1"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `"12345::"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### json-pointer
 
@@ -289,14 +289,14 @@ A string is valid against this format if it represents a valid
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"/a/b/c"`{:.language-json} | *valid*{:.text-success.text-normal} |
 | `"/a/~"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### relative-json-pointer
 
@@ -311,7 +311,7 @@ relative json pointer.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"0/a/b"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -320,7 +320,7 @@ relative json pointer.
 | `"/a/b"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### uri
 
@@ -335,7 +335,7 @@ uri.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"http://example.com/path?qs=v&qs2[1]=3#fragment"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -343,7 +343,7 @@ uri.
 | `"aaa/bbb.html"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### uri-reference
 
@@ -358,7 +358,7 @@ uri or uri reference.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"aaa/bbb.html"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -368,7 +368,7 @@ uri or uri reference.
 | `"http://a_example.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### uri-template
 
@@ -383,7 +383,7 @@ uri template or uri-reference.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"/{+file}.html"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -392,7 +392,7 @@ uri template or uri-reference.
 | `"http://a_example.com/file.php{?q,r}"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 ### iri
 
@@ -406,7 +406,7 @@ A string is valid against this format if it represents a valid IRI.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"http://ƒøø.ßår/?∂éœ=πîx#πîüx"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -414,7 +414,7 @@ A string is valid against this format if it represents a valid IRI.
 | `"http:// ƒøø.com"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 ### iri-reference
@@ -429,7 +429,7 @@ A string is valid against this format if it represents a valid IRI reference.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `"//ƒøø.ßår/?∂éœ=πîx#πîüx"`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -438,4 +438,4 @@ A string is valid against this format if it represents a valid IRI reference.
 | `"\\\\WINDOWS\\filëßåré"`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}

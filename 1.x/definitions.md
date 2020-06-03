@@ -44,7 +44,7 @@ and the [`definitions` keyword](#definitions).
 }
 ```  
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"username": "opis", "primary_email": "opis@example.com"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -55,7 +55,7 @@ and the [`definitions` keyword](#definitions).
 | `{"other_email": ["opis@example.test"]}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 
 Ok, let's see what happens there. The confusing thing is the value of the
@@ -133,7 +133,7 @@ Now, this is the value given by our json pointer.
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"name": "John", "personal_data": {"mail": "john@example.com"}}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -141,7 +141,7 @@ Now, this is the value given by our json pointer.
 | `{"name": "John", "personal_data": "john@example.com"}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 #### Recursive validation
 

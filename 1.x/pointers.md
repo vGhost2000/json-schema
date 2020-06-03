@@ -267,7 +267,7 @@ Here is an example using the [`$ref` keyword](ref-keyword.html).
 }
 ```
 {% endcapture %}
-{% capture data %}
+{% capture examples %}
 |Input|Status|
 |-----|------|
 | `{"first_email": "john@example.com", "second_email: "opis@example.com"}`{:.language-json} | *valid*{:.text-success.text-normal} |
@@ -276,7 +276,7 @@ Here is an example using the [`$ref` keyword](ref-keyword.html).
 | `{"second_email: "invalid-email"}`{:.language-json} | *invalid*{:.text-danger.text-normal} |
 {:.table}
 {% endcapture %}
-{% include tabs.html 1="Schema" 2="Data" _1=schema _2=data %}
+{% include tabs.html 1="Schema" 2="Examples" _1=schema _2=examples %}
 
 These are the steps taken in order to perform validation of `second_email` property:
 
