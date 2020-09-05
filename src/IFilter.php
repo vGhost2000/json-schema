@@ -24,5 +24,5 @@ interface IFilter
      * @param array $args
      * @return bool
      */
-    public function validate($data, array $args): bool;
+    public function validate(&$data, array $args): bool;
 }

@@ -1,9 +1,90 @@
 Opis JSON Schema
 ====================
-[![Tests](https://github.com/opis/json-schema/workflows/Tests/badge.svg)](https://github.com/opis/json-schema/actions)
-[![Latest Stable Version](https://poser.pugx.org/opis/json-schema/v/stable.png)](https://packagist.org/packages/opis/json-schema)
-[![Latest Unstable Version](https://poser.pugx.org/opis/json-schema/v/unstable.png)](https://packagist.org/packages/opis/json-schema)
-[![License](https://poser.pugx.org/opis/json-schema/license.png)](https://packagist.org/packages/opis/json-schema)
+
+Отличие от огигинального репозитория заключается в том, что сделана правка позволяющая модифицировать данные в объектах с помощью фильтров.
+
+Пример:
+
+```php
+<?php
+
+class DateFilterObj implements IFilter
+{
+    /**
+     * @inheritDoc
+     */
+    public function validate(&$date, array $args): bool
+    {
+        if (preg_match('#^(\d{1,2})\.(\d{1,2})\.(\d\d\d\d)$#', trim($date), $m)) {
+            if (strlen($m[1]) === 1) {
+                $m[1] = '0' . $m[1];
+            }
+            if (strlen($m[2]) === 1) {
+                $m[2] = '0' . $m[2];
+            }
+            try {
+                $date = DateTime::createFromFormat('Y-m-d', $m[3] . '-' . $m[2] . '-' . $m[1]);
+                return true;
+            } catch (Throwable $e) {}
+        }
+
+        return false;
+    }
+}
+```
+
+```php
+<?php
+
+use Opis\JsonSchema\{
+    Validator,
+    FilterContainer,
+    Schema
+};
+
+// Create a new FilterContainer
+$filters = new FilterContainer();
+
+// Register our modulo filter
+$filters->add('string', 'dateFilter', new DateFilterObj);
+
+// Create a IValidator
+$validator = new Validator();
+
+// Set filters to be used by validator
+$validator->setFilters($filters);
+
+$data = json_decode('{"date": "11.01.2020"}');
+$schema = Schema::fromJsonString('
+{
+  "$schema":    "http://json-schema.org/draft-07/schema#",
+  "$id":        "https://example.com/date.json",
+  "type":       "object",
+  "properties": {
+    "date": {
+      "type":   "string",
+      "$filters": "dateFilter"
+    }
+  }
+}
+');
+
+
+$result = $validator->schemaValidation($data, $schema);
+if ($result->isValid()) {
+    echo '$data is valid', PHP_EOL;
+    echo $data->date->format('Y-m-d'), PHP_EOL; // 2020-01-11
+} else {
+    /** @var ValidationError $error */
+    $error = $result->getFirstError();
+    echo '$data is invalid', PHP_EOL;
+    echo "Error: ", $error->keyword(), PHP_EOL;
+    echo json_encode($error->keywordArgs(), JSON_PRETTY_PRINT), PHP_EOL;
+}
+```
+
+
+
 
 Validate JSON documents
 -----------
